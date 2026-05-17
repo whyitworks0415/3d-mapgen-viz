@@ -1120,52 +1120,10 @@ std::unique_ptr<IMapGenerator> makeGenerator() {
 } // namespace
 
 void registerPlannedAlgorithmGenerators(AlgorithmRegistry& registry) {
-    // Mazes — classic graph/grid algorithms.
-    registry.registerGenerator({
-        .id = "randomized_prim_maze",
-        .name = "Randomized Prim Maze",
-        .description = "Frontier-growth maze. Grows a tree by always picking a random frontier wall and carving it.",
-        .category = "Maze", .family = "Spanning Tree",
-        .useCase = "Mazes with many short branches; easy to follow step by step.",
-        .priority = 20,
-        .create = [] { return makeGenerator<RandomizedPrimMazeGenerator>(); }
-    });
-    registry.registerGenerator({
-        .id = "randomized_kruskal_maze",
-        .name = "Randomized Kruskal Maze",
-        .description = "Randomized minimum-spanning-tree maze using union-find over grid cells.",
-        .category = "Maze", .family = "Spanning Tree",
-        .useCase = "Even distribution of corridors; great for puzzle-style layouts.",
-        .priority = 21,
-        .create = [] { return makeGenerator<RandomizedKruskalMazeGenerator>(); }
-    });
-    registry.registerGenerator({
-        .id = "wilson_maze",
-        .name = "Wilson's Algorithm",
-        .description = "Uniform spanning-tree maze via loop-erased random walks. Slow start, fast finish.",
-        .category = "Maze", .family = "Spanning Tree",
-        .useCase = "Unbiased mazes for research / statistical comparisons.",
-        .priority = 22,
-        .create = [] { return makeGenerator<WilsonMazeGenerator>(); }
-    });
-    registry.registerGenerator({
-        .id = "aldous_broder_maze",
-        .name = "Aldous-Broder Algorithm",
-        .description = "Uniform spanning-tree maze via a single random walk that carves on first visit.",
-        .category = "Maze", .family = "Spanning Tree",
-        .useCase = "Unbiased mazes with extremely simple implementation.",
-        .priority = 23,
-        .create = [] { return makeGenerator<AldousBroderMazeGenerator>(); }
-    });
-    registry.registerGenerator({
-        .id = "hunt_and_kill_maze",
-        .name = "Hunt-and-Kill Algorithm",
-        .description = "Random walk plus a scanning hunt phase to pick the next unvisited frontier.",
-        .category = "Maze", .family = "Walk + Hunt",
-        .useCase = "Long winding passages, classic dungeon corridors.",
-        .priority = 24,
-        .create = [] { return makeGenerator<HuntAndKillMazeGenerator>(); }
-    });
+    // Most maze / cave / terrain algorithms previously registered here have
+    // been promoted to true step-by-step state machines in their own
+    // translation units. The entries that remain are the ones where the
+    // scripted-replay model is a good fit (simple deterministic generators).
     registry.registerGenerator({
         .id = "growing_tree_maze",
         .name = "Growing Tree Algorithm",
@@ -1203,21 +1161,12 @@ void registerPlannedAlgorithmGenerators(AlgorithmRegistry& registry) {
         .create = [] { return makeGenerator<RecursiveDivisionMazeGenerator>(); }
     });
 
-    // Dungeons & caves.
-    // bsp_dungeon and cellular_automata_cave are now registered by their own
-    // translation units (BSPDungeonGenerator.cpp / CellularAutomataCaveGenerator.cpp)
-    // as true step-by-step state machines.
-    registry.registerGenerator({
-        .id = "drunkard_walk_cave",
-        .name = "Drunkard Walk Cave",
-        .description = "Agent-based carving. One or more walkers wander randomly, opening floors as they go.",
-        .category = "Cave", .family = "Agent",
-        .useCase = "Twisting tunnels, mining-game maps.",
-        .priority = 32,
-        .create = [] { return makeGenerator<DrunkardWalkCaveGenerator>(); }
-    });
-
-    // Terrain.
+    // Cave (Drunkard Walk), Tile (WFC), and the Diamond-Square / Fault
+    // Formation terrains have been promoted to true step-by-step generators
+    // and now live in their own translation units. The Simplex heightmap
+    // remains as scripted-replay because the underlying noise pass is
+    // already cell-by-cell with Perlin/Simplex being interchangeable in
+    // practice — bespoke step machine deferred.
     registry.registerGenerator({
         .id = "simplex_noise_heightmap",
         .name = "Simplex Noise Heightmap",
@@ -1227,26 +1176,6 @@ void registerPlannedAlgorithmGenerators(AlgorithmRegistry& registry) {
         .priority = 40,
         .create = [] { return makeGenerator<SimplexNoiseHeightmapGenerator>(); }
     });
-    registry.registerGenerator({
-        .id = "diamond_square_terrain",
-        .name = "Diamond-Square Terrain",
-        .description = "Classic fractal midpoint displacement. Self-similar at every scale.",
-        .category = "Terrain", .family = "Fractal",
-        .useCase = "Retro-style continents, fast plausible terrain.",
-        .priority = 41,
-        .create = [] { return makeGenerator<DiamondSquareTerrainGenerator>(); }
-    });
-    registry.registerGenerator({
-        .id = "fault_formation_terrain",
-        .name = "Fault Formation Terrain",
-        .description = "Repeated tectonic-style fault lines uplift and depress strips of the map.",
-        .category = "Terrain", .family = "Fault",
-        .useCase = "Mountain ridges, plateau-and-valley landscapes.",
-        .priority = 42,
-        .create = [] { return makeGenerator<FaultFormationTerrainGenerator>(); }
-    });
-
-    // Tile / WFC moved to WFCGenerator.cpp as a true step-by-step state machine.
 }
 
 } // namespace mgv

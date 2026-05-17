@@ -1,16 +1,24 @@
 #include "algorithms/AlgorithmRegistry.h"
 
+#include "algorithms/AldousBroderMazeGenerator.h"
 #include "algorithms/BSPDungeonGenerator.h"
 #include "algorithms/CatalogAlgorithmGenerators.h"
 #include "algorithms/CellularAutomataCaveGenerator.h"
 #include "algorithms/DFSMazeGenerator.h"
+#include "algorithms/DiamondSquareTerrainGenerator.h"
+#include "algorithms/DrunkardWalkCaveGenerator.h"
 #include "algorithms/EllerMazeGenerator.h"
+#include "algorithms/FaultFormationTerrainGenerator.h"
+#include "algorithms/HuntAndKillMazeGenerator.h"
+#include "algorithms/KruskalMazeGenerator.h"
 #include "algorithms/PerlinNoiseHeightmapGenerator.h"
 #include "algorithms/PlannedAlgorithmGenerators.h"
 #include "algorithms/PoissonDiskSamplingGenerator.h"
+#include "algorithms/PrimMazeGenerator.h"
 #include "algorithms/RandomRoomDungeonGenerator.h"
 #include "algorithms/VoronoiDiagramGenerator.h"
 #include "algorithms/WFCGenerator.h"
+#include "algorithms/WilsonMazeGenerator.h"
 
 #include <algorithm>
 
@@ -64,6 +72,14 @@ void registerBuiltInAlgorithms(AlgorithmRegistry& registry) {
     registerEllerMazeGenerator(registry);
     registerVoronoiDiagramGenerator(registry);
     registerPoissonDiskSamplingGenerator(registry);
+    registerPrimMazeGenerator(registry);
+    registerKruskalMazeGenerator(registry);
+    registerWilsonMazeGenerator(registry);
+    registerAldousBroderMazeGenerator(registry);
+    registerHuntAndKillMazeGenerator(registry);
+    registerDrunkardWalkCaveGenerator(registry);
+    registerDiamondSquareTerrainGenerator(registry);
+    registerFaultFormationTerrainGenerator(registry);
 
     // Planned (scripted-replay algorithms).
     registerPlannedAlgorithmGenerators(registry);
