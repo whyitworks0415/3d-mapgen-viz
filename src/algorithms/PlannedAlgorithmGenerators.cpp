@@ -769,222 +769,9 @@ private:
     }
 };
 
-class BSPDungeonGenerator final : public ScriptedGenerator {
-public:
-    std::string_view id() const override { return "bsp_dungeon"; }
-    std::string_view name() const override { return "BSP Dungeon"; }
-    std::string_view description() const override {
-        return "Recursively partitions the map, places one room per leaf, and connects sibling spaces.";
-    }
-
-private:
-    struct Rect { uint32_t x, y, w, h; };
-
-    void carveRect(const Rect& rect, CellType type, float height) {
-        for (uint32_t y = rect.y; y < rect.y + rect.h && y < depth_; ++y) {
-            for (uint32_t x = rect.x; x < rect.x + rect.w && x < width_; ++x) {
-                push(x, y, type, height);
-            }
-        }
-    }
-
-    void carveWide(uint32_t x, uint32_t y, uint32_t radius, CellType type, float height) {
-        const int32_t r = static_cast<int32_t>(radius);
-        for (int32_t oy = -r; oy <= r; ++oy) {
-            for (int32_t ox = -r; ox <= r; ++ox) {
-                const int32_t cx = static_cast<int32_t>(x) + ox;
-                const int32_t cy = static_cast<int32_t>(y) + oy;
-                if (cx > 0 && cy > 0 &&
-                    cx < static_cast<int32_t>(width_ - 1) &&
-                    cy < static_cast<int32_t>(depth_ - 1)) {
-                    push(static_cast<uint32_t>(cx), static_cast<uint32_t>(cy), type, height);
-                }
-            }
-        }
-    }
-
-    void carveCorridor(std::pair<uint32_t, uint32_t> a,
-                       std::pair<uint32_t, uint32_t> b,
-                       uint32_t width,
-                       float height) {
-        int32_t x = static_cast<int32_t>(a.first);
-        int32_t y = static_cast<int32_t>(a.second);
-        const int32_t endX = static_cast<int32_t>(b.first);
-        const int32_t endY = static_cast<int32_t>(b.second);
-        const int32_t stepX = (endX > x) ? 1 : (endX < x ? -1 : 0);
-        const int32_t stepY = (endY > y) ? 1 : (endY < y ? -1 : 0);
-        const uint32_t radius = width / 2;
-        while (x != endX) {
-            carveWide(static_cast<uint32_t>(x), static_cast<uint32_t>(y), radius, CellType::Corridor, height);
-            x += stepX;
-        }
-        while (y != endY) {
-            carveWide(static_cast<uint32_t>(x), static_cast<uint32_t>(y), radius, CellType::Corridor, height);
-            y += stepY;
-        }
-        carveWide(static_cast<uint32_t>(x), static_cast<uint32_t>(y), radius, CellType::Corridor, height);
-    }
-
-    void split(const Rect& rect,
-               uint32_t depth,
-               const BSPDungeonSettings& settings,
-               std::mt19937& rng,
-               std::vector<Rect>& leaves) {
-        if (depth >= settings.maxDepth ||
-            rect.w < settings.minLeafSize * 2 ||
-            rect.h < settings.minLeafSize * 2) {
-            leaves.push_back(rect);
-            return;
-        }
-
-        const bool splitVertical = rect.w > rect.h ? true : (rect.h > rect.w ? false : (rng() & 1u) != 0);
-        if (splitVertical) {
-            const uint32_t minSplit = settings.minLeafSize;
-            const uint32_t maxSplit = rect.w - settings.minLeafSize;
-            if (minSplit >= maxSplit) { leaves.push_back(rect); return; }
-            std::uniform_int_distribution<uint32_t> pick(minSplit, maxSplit);
-            uint32_t s = pick(rng);
-            split({ rect.x, rect.y, s, rect.h }, depth + 1, settings, rng, leaves);
-            split({ rect.x + s, rect.y, rect.w - s, rect.h }, depth + 1, settings, rng, leaves);
-        } else {
-            const uint32_t minSplit = settings.minLeafSize;
-            const uint32_t maxSplit = rect.h - settings.minLeafSize;
-            if (minSplit >= maxSplit) { leaves.push_back(rect); return; }
-            std::uniform_int_distribution<uint32_t> pick(minSplit, maxSplit);
-            uint32_t s = pick(rng);
-            split({ rect.x, rect.y, rect.w, s }, depth + 1, settings, rng, leaves);
-            split({ rect.x, rect.y + s, rect.w, rect.h - s }, depth + 1, settings, rng, leaves);
-        }
-    }
-
-    void build(MapData& map, const GeneratorConfig& config) override {
-        auto settings = config.bspDungeon;
-        width_ = std::max<uint32_t>(16, width_);
-        depth_ = std::max<uint32_t>(16, depth_);
-        cellsPerStep_ = std::max<uint32_t>(1, settings.cellsPerStep);
-        fillInitial(map, CellType::Wall, std::max(0.05f, settings.wallHeight));
-
-        settings.minLeafSize = std::clamp<uint32_t>(settings.minLeafSize, 6, 64);
-        settings.maxDepth = std::clamp<uint32_t>(settings.maxDepth, 1, 9);
-        settings.minRoomSize = std::clamp<uint32_t>(settings.minRoomSize, 3, 32);
-        settings.roomPadding = std::clamp<uint32_t>(settings.roomPadding, 1, 12);
-        settings.corridorWidth = std::clamp<uint32_t>(settings.corridorWidth, 1, 12);
-
-        std::mt19937 rng(config.seed);
-        std::vector<Rect> leaves;
-        split({ 1, 1, width_ - 2, depth_ - 2 }, 0, settings, rng, leaves);
-
-        std::vector<Rect> rooms;
-        for (const Rect& leaf : leaves) {
-            const uint32_t maxW = leaf.w > settings.roomPadding * 2
-                ? leaf.w - settings.roomPadding * 2 : leaf.w;
-            const uint32_t maxH = leaf.h > settings.roomPadding * 2
-                ? leaf.h - settings.roomPadding * 2 : leaf.h;
-            const uint32_t rw = std::max(settings.minRoomSize, maxW);
-            const uint32_t rh = std::max(settings.minRoomSize, maxH);
-            Rect room {
-                leaf.x + std::min(settings.roomPadding, leaf.w / 3),
-                leaf.y + std::min(settings.roomPadding, leaf.h / 3),
-                std::min(maxW, rw),
-                std::min(maxH, rh)
-            };
-            if (room.x + room.w >= width_) room.w = width_ - room.x - 1;
-            if (room.y + room.h >= depth_) room.h = depth_ - room.y - 1;
-            if (room.w >= 2 && room.h >= 2) {
-                rooms.push_back(room);
-                carveRect(room, CellType::Room, settings.roomHeight);
-            }
-        }
-
-        std::sort(rooms.begin(), rooms.end(), [](const Rect& a, const Rect& b) {
-            if (a.x == b.x) return a.y < b.y;
-            return a.x < b.x;
-        });
-        for (size_t i = 1; i < rooms.size(); ++i) {
-            auto centerA = std::pair<uint32_t, uint32_t> {
-                rooms[i - 1].x + rooms[i - 1].w / 2,
-                rooms[i - 1].y + rooms[i - 1].h / 2
-            };
-            auto centerB = std::pair<uint32_t, uint32_t> {
-                rooms[i].x + rooms[i].w / 2,
-                rooms[i].y + rooms[i].h / 2
-            };
-            carveCorridor(centerA, centerB, settings.corridorWidth, settings.corridorHeight);
-        }
-    }
-};
-
-class CellularAutomataCaveGenerator final : public ScriptedGenerator {
-public:
-    std::string_view id() const override { return "cellular_automata_cave"; }
-    std::string_view name() const override { return "Cellular Automata Cave"; }
-    std::string_view description() const override {
-        return "Starts from random walls and repeatedly applies cave smoothing birth/death rules.";
-    }
-
-private:
-    int countWalls(const std::vector<uint8_t>& grid, uint32_t x, uint32_t y, bool edgeWalls) const {
-        int count = 0;
-        for (int32_t oy = -1; oy <= 1; ++oy) {
-            for (int32_t ox = -1; ox <= 1; ++ox) {
-                if (ox == 0 && oy == 0) continue;
-                const int32_t nx = static_cast<int32_t>(x) + ox;
-                const int32_t ny = static_cast<int32_t>(y) + oy;
-                if (nx < 0 || ny < 0 || nx >= static_cast<int32_t>(width_) || ny >= static_cast<int32_t>(depth_)) {
-                    count += edgeWalls ? 1 : 0;
-                } else if (grid[index(static_cast<uint32_t>(nx), static_cast<uint32_t>(ny))]) {
-                    ++count;
-                }
-            }
-        }
-        return count;
-    }
-
-    void emitGrid(const std::vector<uint8_t>& grid, const CellularAutomataSettings& settings) {
-        for (uint32_t y = 0; y < depth_; ++y) {
-            for (uint32_t x = 0; x < width_; ++x) {
-                const bool wall = grid[index(x, y)] != 0;
-                push(x, y, wall ? CellType::Wall : CellType::Corridor,
-                     wall ? settings.wallHeight : settings.floorHeight);
-            }
-        }
-    }
-
-    void build(MapData& map, const GeneratorConfig& config) override {
-        auto settings = config.cellularAutomata;
-        width_ = std::max<uint32_t>(8, width_);
-        depth_ = std::max<uint32_t>(8, depth_);
-        cellsPerStep_ = std::max<uint32_t>(1, settings.cellsPerStep);
-        fillInitial(map, CellType::Wall, settings.wallHeight);
-
-        std::mt19937 rng(config.seed);
-        std::uniform_real_distribution<float> chance(0.0f, 1.0f);
-        std::vector<uint8_t> grid(static_cast<size_t>(width_) * depth_, 0);
-        for (uint32_t y = 0; y < depth_; ++y) {
-            for (uint32_t x = 0; x < width_; ++x) {
-                const bool edge = x == 0 || y == 0 || x == width_ - 1 || y == depth_ - 1;
-                grid[index(x, y)] = (settings.edgeWalls && edge) || chance(rng) < settings.initialWallChance;
-            }
-        }
-        emitGrid(grid, settings);
-
-        for (uint32_t iter = 0; iter < settings.iterations; ++iter) {
-            std::vector<uint8_t> next = grid;
-            for (uint32_t y = 0; y < depth_; ++y) {
-                for (uint32_t x = 0; x < width_; ++x) {
-                    const int walls = countWalls(grid, x, y, settings.edgeWalls);
-                    if (grid[index(x, y)]) {
-                        next[index(x, y)] = walls >= static_cast<int>(settings.deathLimit);
-                    } else {
-                        next[index(x, y)] = walls >= static_cast<int>(settings.birthLimit);
-                    }
-                }
-            }
-            grid = std::move(next);
-            emitGrid(grid, settings);
-        }
-    }
-};
+// BSPDungeonGenerator and CellularAutomataCaveGenerator are now true
+// step-by-step state machines in their own translation units; see
+// BSPDungeonGenerator.cpp and CellularAutomataCaveGenerator.cpp.
 
 class DrunkardWalkCaveGenerator final : public ScriptedGenerator {
 public:
@@ -1322,74 +1109,8 @@ private:
     }
 };
 
-class SimpleTiledWFCGenerator final : public ScriptedGenerator {
-public:
-    std::string_view id() const override { return "simple_tiled_wfc"; }
-    std::string_view name() const override { return "Simple Tiled WFC"; }
-    std::string_view description() const override {
-        return "A lightweight weighted tile-collapse pass with local adjacency constraints.";
-    }
-
-private:
-    struct Tile { CellType type; uint32_t weight; float height; };
-
-    bool compatible(CellType a, CellType b, const WFCSettings& settings) const {
-        if (!settings.allowWaterNearMountain &&
-            ((a == CellType::Water && b == CellType::Mountain) ||
-             (a == CellType::Mountain && b == CellType::Water))) {
-            return false;
-        }
-        if (a == CellType::Wall && b == CellType::Water) return false;
-        if (a == CellType::Water && b == CellType::Wall) return false;
-        return true;
-    }
-
-    void build(MapData& map, const GeneratorConfig& config) override {
-        auto settings = config.wfc;
-        cellsPerStep_ = std::max<uint32_t>(1, settings.cellsPerStep);
-        fillInitial(map, CellType::Empty, 0.01f);
-
-        std::vector<Tile> tiles = {
-            { CellType::Water,    std::max<uint32_t>(1, settings.waterWeight),    settings.waterHeight },
-            { CellType::Floor,    std::max<uint32_t>(1, settings.floorWeight),    settings.floorHeight },
-            { CellType::Wall,     std::max<uint32_t>(1, settings.wallWeight),     settings.wallHeight },
-            { CellType::Mountain, std::max<uint32_t>(1, settings.mountainWeight), settings.mountainHeight }
-        };
-
-        std::mt19937 rng(config.seed);
-        std::vector<CellType> grid(static_cast<size_t>(width_) * depth_, CellType::Empty);
-        for (uint32_t y = 0; y < depth_; ++y) {
-            for (uint32_t x = 0; x < width_; ++x) {
-                std::vector<Tile> candidates;
-                for (Tile tile : tiles) {
-                    bool ok = true;
-                    if (x > 0 && !compatible(tile.type, grid[index(x - 1, y)], settings)) ok = false;
-                    if (y > 0 && !compatible(tile.type, grid[index(x, y - 1)], settings)) ok = false;
-                    if (settings.preferConnectedFloors &&
-                        tile.type == CellType::Floor &&
-                        ((x > 0 && grid[index(x - 1, y)] == CellType::Floor) ||
-                         (y > 0 && grid[index(x, y - 1)] == CellType::Floor))) {
-                        tile.weight *= 2;
-                    }
-                    if (ok) candidates.push_back(tile);
-                }
-                if (candidates.empty()) candidates = tiles;
-
-                uint32_t total = 0;
-                for (const Tile& tile : candidates) total += tile.weight;
-                std::uniform_int_distribution<uint32_t> pick(1, total);
-                uint32_t roll = pick(rng);
-                Tile chosen = candidates.front();
-                for (const Tile& tile : candidates) {
-                    if (roll <= tile.weight) { chosen = tile; break; }
-                    roll -= tile.weight;
-                }
-                grid[index(x, y)] = chosen.type;
-                push(x, y, chosen.type, chosen.height);
-            }
-        }
-    }
-};
+// SimpleTiledWFCGenerator is now a true step-by-step state machine in
+// WFCGenerator.cpp (collapses one min-entropy cell per step + propagation).
 
 template <typename T>
 std::unique_ptr<IMapGenerator> makeGenerator() {
@@ -1483,25 +1204,9 @@ void registerPlannedAlgorithmGenerators(AlgorithmRegistry& registry) {
     });
 
     // Dungeons & caves.
-    registry.registerGenerator({
-        .id = "bsp_dungeon",
-        .name = "BSP Dungeon",
-        .description = "Binary space partitioning. Recursively splits the map, drops rooms in leaves, "
-                       "connects siblings with corridors.",
-        .category = "Dungeon", .family = "Space Partition",
-        .useCase = "Structured dungeons with clear room hierarchy.",
-        .priority = 30,
-        .create = [] { return makeGenerator<BSPDungeonGenerator>(); }
-    });
-    registry.registerGenerator({
-        .id = "cellular_automata_cave",
-        .name = "Cellular Automata Cave",
-        .description = "Random fill followed by smoothing rules (4-5 rule). Organic, biological feel.",
-        .category = "Cave", .family = "Cellular Automata",
-        .useCase = "Organic caverns, natural underground systems.",
-        .priority = 31,
-        .create = [] { return makeGenerator<CellularAutomataCaveGenerator>(); }
-    });
+    // bsp_dungeon and cellular_automata_cave are now registered by their own
+    // translation units (BSPDungeonGenerator.cpp / CellularAutomataCaveGenerator.cpp)
+    // as true step-by-step state machines.
     registry.registerGenerator({
         .id = "drunkard_walk_cave",
         .name = "Drunkard Walk Cave",
@@ -1541,16 +1246,7 @@ void registerPlannedAlgorithmGenerators(AlgorithmRegistry& registry) {
         .create = [] { return makeGenerator<FaultFormationTerrainGenerator>(); }
     });
 
-    // Tile / constraint.
-    registry.registerGenerator({
-        .id = "simple_tiled_wfc",
-        .name = "Simple Tiled WFC",
-        .description = "Constraint-based weighted tile collapse. Tiles propagate local rules until stable.",
-        .category = "Tile / WFC", .family = "Constraint Solver",
-        .useCase = "Designer-driven content from a hand-authored tile set.",
-        .priority = 50,
-        .create = [] { return makeGenerator<SimpleTiledWFCGenerator>(); }
-    });
+    // Tile / WFC moved to WFCGenerator.cpp as a true step-by-step state machine.
 }
 
 } // namespace mgv

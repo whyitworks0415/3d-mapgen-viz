@@ -1,10 +1,13 @@
 #include "algorithms/AlgorithmRegistry.h"
 
+#include "algorithms/BSPDungeonGenerator.h"
 #include "algorithms/CatalogAlgorithmGenerators.h"
+#include "algorithms/CellularAutomataCaveGenerator.h"
 #include "algorithms/DFSMazeGenerator.h"
 #include "algorithms/PerlinNoiseHeightmapGenerator.h"
 #include "algorithms/PlannedAlgorithmGenerators.h"
 #include "algorithms/RandomRoomDungeonGenerator.h"
+#include "algorithms/WFCGenerator.h"
 
 #include <algorithm>
 
@@ -48,10 +51,18 @@ void registerBuiltInAlgorithms(AlgorithmRegistry& registry) {
     static bool registered = false;
     if (registered) return;
 
+    // Featured (true step-by-step state machines).
     registerDFSMazeGenerator(registry);
-    registerPlannedAlgorithmGenerators(registry);
     registerRandomRoomDungeonGenerator(registry);
     registerPerlinNoiseHeightmapGenerator(registry);
+    registerBSPDungeonGenerator(registry);
+    registerCellularAutomataCaveGenerator(registry);
+    registerWFCGenerator(registry);
+
+    // Planned (scripted-replay algorithms).
+    registerPlannedAlgorithmGenerators(registry);
+
+    // Catalog (family-generic placeholders for the full mapAlgorithmList.txt).
     registerCatalogAlgorithmGenerators(registry);
     registered = true;
 }

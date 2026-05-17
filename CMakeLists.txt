@@ -84,11 +84,14 @@ target_link_libraries(imgui PUBLIC glfw Vulkan::Vulkan)
 set(MAPGENVIZ_SOURCES
     src/main.cpp
     src/algorithms/AlgorithmRegistry.cpp
+    src/algorithms/BSPDungeonGenerator.cpp
     src/algorithms/CatalogAlgorithmGenerators.cpp
+    src/algorithms/CellularAutomataCaveGenerator.cpp
     src/algorithms/DFSMazeGenerator.cpp
     src/algorithms/PerlinNoiseHeightmapGenerator.cpp
     src/algorithms/PlannedAlgorithmGenerators.cpp
     src/algorithms/RandomRoomDungeonGenerator.cpp
+    src/algorithms/WFCGenerator.cpp
     src/app/Application.cpp
     src/core/Window.cpp
     src/core/Camera.cpp
