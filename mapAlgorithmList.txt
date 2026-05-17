@@ -1,0 +1,449 @@
+MAP GENERATION ALGORITHMS LIST
+
+1. MAZE GENERATION
+
+- Recursive Backtracking Maze
+- Depth-First Search Maze
+- Randomized Prim's Maze
+- Randomized Kruskal's Maze
+- Wilson's Algorithm
+- Aldous-Broder Algorithm
+- Hunt-and-Kill Algorithm
+- Growing Tree Algorithm
+- Binary Tree Maze
+- Sidewinder Maze
+- Eller’s Algorithm
+- Recursive Division Maze
+- Random Walk Maze
+- Depth-Limited DFS Maze
+- Braided Maze
+- Weave Maze
+- Theta Maze
+- Hex Grid Maze
+- Triangular Grid Maze
+- Polar Grid Maze
+- Voronoi Maze
+- Masked Maze
+- Braid Conversion
+- Dead-End Removal
+- Loop Addition
+- Path Widening
+- Room Insertion Maze
+- Longest Path Maze
+
+2. DUNGEON GENERATION
+
+- Random Room Placement
+- Random Room Placement with Corridor Connection
+- Room Packing
+- Room Separation Steering
+- Room Growth Algorithm
+- Room Accretion
+- Room-and-Corridor Generation
+- Feature Growth Dungeon
+- Prefab Room Placement
+- Template-Based Dungeon Generation
+- BSP Dungeon Generation
+- Binary Space Partitioning Dungeon
+- Graph-Based Dungeon Generation
+- Delaunay Triangulation Dungeon
+- Minimum Spanning Tree Dungeon
+- Loop-Enhanced Dungeon Graph
+- Cellular Automata Cave
+- Drunkard Walk Cave
+- Random Walk Cave
+- Agent-Based Cave Digging
+- Diffusion-Limited Aggregation Cave
+- Voronoi Dungeon
+- Grammar-Based Dungeon
+- Mission Graph Dungeon
+- Lock-and-Key Dungeon Generation
+- Cyclic Dungeon Generation
+- Hub-and-Spoke Dungeon
+- Quest-Driven Dungeon Generation
+- Spelunky-Style Room Grid Generation
+- Isaac-Style Room Graph Generation
+- Roguelike Dungeon Generation
+- Rogue-Style Dungeon Generation
+- Corridor-First Dungeon Generation
+- Room-First Dungeon Generation
+
+3. TERRAIN GENERATION
+
+- Perlin Noise
+- Simplex Noise
+- OpenSimplex Noise
+- Value Noise
+- Gradient Noise
+- White Noise Heightmap
+- Fractal Noise
+- Fractal Brownian Motion
+- Ridged Multifractal Noise
+- Billow Noise
+- Domain Warping
+- Turbulence Noise
+- Voronoi Noise
+- Worley Noise
+- Diamond-Square Algorithm
+- Midpoint Displacement
+- Fault Formation
+- Particle Deposition
+- Random Hill Algorithm
+- Fractional Brownian Terrain
+- Spectral Synthesis
+- Fourier Terrain Generation
+- Thermal Erosion
+- Hydraulic Erosion
+- Wind Erosion
+- Fluvial Erosion
+- Coastal Erosion
+- River-Based Terrain Generation
+- Drainage Basin Generation
+- Watershed Terrain Generation
+- Heightmap Blending
+- Layered Noise Terrain
+- Biome-Based Terrain Generation
+- Plate Tectonics Terrain Generation
+- Spherical Planet Terrain Generation
+- Voxel Terrain Generation
+- Marching Cubes Terrain
+- Dual Contouring Terrain
+- Signed Distance Field Terrain
+- Heightfield Terrain Generation
+
+4. TILE-BASED GENERATION
+
+- Random Tile Placement
+- Rule-Based Tile Generation
+- Wang Tiles
+- Corner Wang Tiles
+- Edge-Matching Tiles
+- Constraint-Based Tile Generation
+- Constraint Propagation
+- Wave Function Collapse
+- Overlapping Model WFC
+- Simple Tiled Model WFC
+- Backtracking Tile Solver
+- Markov Chain Tile Generation
+- Grammar-Based Tile Generation
+- L-System Tile Generation
+- Cellular Tile Growth
+- Autotiling
+- Bitmask Autotiling
+- Marching Squares Tile Generation
+- Terrain Tile Blending
+- Road Tile Connection Generation
+- Room Tile Connection Generation
+
+5. CELLULAR AUTOMATA MAP GENERATION
+
+- Basic Cellular Automata Cave
+- Conway-Based Map Generation
+- Life-Like Cellular Automata
+- Majority Rule Cellular Automata
+- Cave Smoothing Cellular Automata
+- Island Generation Cellular Automata
+- Forest Fire Cellular Automata
+- Diffusion Cellular Automata
+- Erosion Cellular Automata
+- Multi-State Cellular Automata
+- Totalistic Cellular Automata
+- Outer-Totalistic Cellular Automata
+- Cyclic Cellular Automata
+- Reaction-Diffusion Map Generation
+
+6. GRAPH-BASED MAP GENERATION
+
+- Random Graph Map Generation
+- Planar Graph Generation
+- Delaunay Triangulation
+- Voronoi Diagram Generation
+- Minimum Spanning Tree
+- Relative Neighborhood Graph
+- Gabriel Graph
+- Graph Grammar Generation
+- Mission Graph Generation
+- Quest Graph Generation
+- Room Graph Generation
+- Region Adjacency Graph
+- Navigation Graph Generation
+- Road Graph Generation
+- Connectivity Graph Generation
+- Loop Insertion Graph Algorithm
+- Hub-and-Spoke Graph Generation
+- Tree-Based Map Generation
+- Cyclic Graph Map Generation
+
+7. NOISE-BASED MAP GENERATION
+
+- White Noise
+- Value Noise
+- Gradient Noise
+- Perlin Noise
+- Simplex Noise
+- OpenSimplex Noise
+- Worley Noise
+- Voronoi Noise
+- Gabor Noise
+- Wavelet Noise
+- Blue Noise Sampling
+- Pink Noise
+- Brownian Noise
+- Fractal Brownian Motion
+- Ridged Noise
+- Billow Noise
+- Domain Warped Noise
+- Curl Noise
+- Turbulence Noise
+- Sparse Convolution Noise
+- Cellular Noise
+
+8. SAMPLING-BASED GENERATION
+
+- Uniform Random Sampling
+- Rejection Sampling
+- Poisson Disk Sampling
+- Bridson Poisson Disk Sampling
+- Blue Noise Sampling
+- Stratified Sampling
+- Jittered Grid Sampling
+- Halton Sequence Sampling
+- Sobol Sequence Sampling
+- Low-Discrepancy Sampling
+- Lloyd Relaxation
+- Centroidal Voronoi Tessellation
+- Weighted Random Sampling
+- Importance Sampling
+
+9. SPACE PARTITIONING
+
+- Binary Space Partitioning
+- Quadtrees
+- Octrees
+- KD-Trees
+- Voronoi Partitioning
+- Delaunay Partitioning
+- Grid Partitioning
+- Recursive Subdivision
+- Split-and-Merge Partitioning
+- Region Growing
+- Flood Fill Region Partitioning
+- Watershed Partitioning
+- Convex Partitioning
+- Polygon Subdivision
+- City Block Subdivision
+
+10. CITY / URBAN GENERATION
+
+- L-System Road Generation
+- Agent-Based Road Growth
+- Tensor Field Road Generation
+- Voronoi City Districts
+- City Block Subdivision
+- Parcel Subdivision
+- Shape Grammar Buildings
+- Procedural Building Generation
+- Procedural Street Network Generation
+- Grid-Based City Generation
+- Radial City Generation
+- Organic City Growth
+- Manhattan Grid Generation
+- Medieval City Generation
+- Road Hierarchy Generation
+- District-Based City Generation
+- Population Density Map Generation
+- Land-Use Map Generation
+- Zoning-Based City Generation
+- Building Footprint Generation
+
+11. WORLD / REGION GENERATION
+
+- Voronoi Region Generation
+- Biome Map Generation
+- Climate Simulation Map Generation
+- Temperature Map Generation
+- Moisture Map Generation
+- Elevation-Based Region Generation
+- Plate Tectonics World Generation
+- Erosion-Based World Generation
+- River Network Generation
+- Watershed Generation
+- Drainage Basin Generation
+- Political Border Generation
+- Civilization Map Generation
+- Resource Distribution Generation
+- Island Generation
+- Continent Generation
+- Archipelago Generation
+- Spherical World Generation
+- Hex World Generation
+- Chunk-Based Infinite World Generation
+
+12. ROAD / PATH / RIVER GENERATION
+
+- A* Path-Based Road Generation
+- Dijkstra Path-Based Road Generation
+- Minimum Spanning Tree Road Network
+- Steiner Tree Road Network
+- L-System Roads
+- Agent-Based Roads
+- Tensor Field Roads
+- Spline-Based Road Generation
+- Bezier Road Generation
+- River Flow Accumulation
+- Downhill River Tracing
+- Drainage Network Generation
+- Meandering River Generation
+- Road Connection Graph
+- Path Smoothing
+- Path Widening
+- Corridor Carving
+- Tunnel Generation
+
+13. GRAMMAR-BASED GENERATION
+
+- Shape Grammar
+- Graph Grammar
+- String Grammar
+- L-System Generation
+- Stochastic L-System
+- Context-Sensitive Grammar
+- Context-Free Grammar
+- Split Grammar
+- Production Rule Generation
+- Mission Grammar
+- Quest Grammar
+- Building Grammar
+- Dungeon Grammar
+- Road Grammar
+- Tile Grammar
+
+14. AGENT-BASED GENERATION
+
+- Random Walker
+- Drunkard Walk
+- Multiple Random Walkers
+- Agent-Based Cave Digging
+- Agent-Based Road Growth
+- Agent-Based City Growth
+- Ant Colony Map Generation
+- Swarm-Based Generation
+- Boids-Based Spatial Generation
+- Settler Agent Simulation
+- Civilization Growth Simulation
+- Traffic-Driven Road Growth
+- Resource-Seeking Agent Generation
+- Enemy/Encounter Placement Agents
+- Room Digging Agents
+
+15. EVOLUTIONARY / OPTIMIZATION-BASED GENERATION
+
+- Genetic Algorithm Map Generation
+- Evolutionary Dungeon Generation
+- Evolutionary Terrain Generation
+- Genetic Programming Generation
+- Neuroevolution Map Generation
+- Simulated Annealing Map Optimization
+- Constraint Satisfaction Optimization
+- Hill Climbing Map Optimization
+- Random Mutation Map Generation
+- Fitness-Based Dungeon Generation
+- Multi-Objective Map Generation
+- MAP-Elites Procedural Generation
+- Quality-Diversity Generation
+
+16. AI / ML-BASED MAP GENERATION
+
+- Markov Chain Map Generation
+- Markov Random Field Map Generation
+- Hidden Markov Model Generation
+- Bayesian Network Map Generation
+- Neural Cellular Automata
+- Autoencoder Map Generation
+- Variational Autoencoder Map Generation
+- GAN-Based Map Generation
+- Diffusion-Based Map Generation
+- Transformer-Based Map Generation
+- Reinforcement Learning Map Generation
+- Imitation Learning Map Generation
+- Procedural Content Generation via Machine Learning
+- PCGML
+- Large Language Model Assisted Map Generation
+
+17. VOXEL / 3D MAP GENERATION
+
+- Voxel Terrain Generation
+- Chunk-Based Voxel Generation
+- Marching Cubes
+- Dual Contouring
+- Surface Nets
+- Sparse Voxel Octree Generation
+- Signed Distance Field Generation
+- Constructive Solid Geometry
+- 3D Cellular Automata
+- 3D Perlin Noise Caves
+- 3D Simplex Noise Caves
+- Worm Cave Generation
+- Noise Worms
+- Tunnel Worms
+- Cave Network Generation
+- Voxel Dungeon Generation
+- Procedural Cave Tubes
+- Volumetric Terrain Generation
+
+18. PLANET / SPHERICAL MAP GENERATION
+
+- Cube Sphere Terrain Generation
+- Icosphere Subdivision
+- Spherical Voronoi Generation
+- Spherical Noise Terrain
+- Plate Tectonics Planet Generation
+- Climate-Based Planet Generation
+- Biome-Based Planet Generation
+- Ocean/Land Mask Generation
+- Latitude-Based Temperature Generation
+- Atmospheric Simulation Map
+- Planetary Erosion
+- Crater Generation
+- Asteroid Terrain Generation
+- Gas Giant Texture Generation
+- Procedural Moon Generation
+
+19. PLACEMENT / DECORATION ALGORITHMS
+
+- Random Object Placement
+- Poisson Disk Object Placement
+- Blue Noise Object Placement
+- Weighted Biome Placement
+- Rule-Based Object Placement
+- Constraint-Based Object Placement
+- Scatter Placement
+- Cluster Placement
+- Resource Node Placement
+- Enemy Spawn Placement
+- Loot Placement
+- Encounter Placement
+- Landmark Placement
+- Prop Placement
+- Vegetation Placement
+- Tree Distribution
+- Rock Distribution
+- Foliage Generation
+- Navmesh-Aware Placement
+
+20. HYBRID MAP GENERATION
+
+- Noise + Cellular Automata
+- Noise + Voronoi
+- Noise + Erosion
+- BSP + Cellular Automata
+- Room Graph + Corridor Carving
+- WFC + Grammar
+- WFC + Handcrafted Prefabs
+- Terrain + Biome Rules
+- Terrain + River Simulation
+- City Grammar + Road Agents
+- Dungeon Graph + Lock-and-Key Rules
+- Evolutionary + Constraint-Based Generation
+- ML-Assisted + Rule-Based Generation
+- Chunk-Based Hybrid Generation

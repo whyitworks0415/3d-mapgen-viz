@@ -1,0 +1,808 @@
+﻿# Map Algorithm Implementation Checklist
+
+`mapAlgorithmList.txt` 기준 구현 현황입니다.
+
+## Summary
+
+- [x] 앱에 등록되어 실행/스텝 재생 가능한 알고리즘: 388 / 388
+- [x] 전용 구현 또는 직접 대응 구현: 32
+- [x] 카테고리 기반 catalog 구현: 356
+- [ ] 완전히 미등록된 항목: 0
+
+## Legend
+
+- `Dedicated`: 해당 알고리즘 전용 클래스/함수 또는 직접 대응되는 전용 구현이 있습니다.
+- `Catalog`: `mapAlgorithmList.txt`에서 자동 등록되며, 카테고리별 원리 시각화 패턴으로 실행됩니다. 아직 교과서식 전용 구현은 아닙니다.
+- `Missing`: 앱에 등록되지 않았습니다. 현재는 없습니다.
+
+## Made / Playable Checklist
+
+### MAZE GENERATION
+
+- [x] **Recursive Backtracking Maze** — Dedicated-equivalent: DFSMazeGenerator
+- [x] **Depth-First Search Maze** — Dedicated: DFSMazeGenerator
+- [x] **Randomized Prim's Maze** — Dedicated: RandomizedPrimMazeGenerator
+- [x] **Randomized Kruskal's Maze** — Dedicated: RandomizedKruskalMazeGenerator
+- [x] **Wilson's Algorithm** — Dedicated: WilsonMazeGenerator
+- [x] **Aldous-Broder Algorithm** — Dedicated: AldousBroderMazeGenerator
+- [x] **Hunt-and-Kill Algorithm** — Dedicated: HuntAndKillMazeGenerator
+- [x] **Growing Tree Algorithm** — Dedicated: GrowingTreeMazeGenerator
+- [x] **Binary Tree Maze** — Dedicated: BinaryTreeMazeGenerator
+- [x] **Sidewinder Maze** — Dedicated: SidewinderMazeGenerator
+- [x] **Eller?셲 Algorithm** — Catalog: category-aware playable visualization
+- [x] **Recursive Division Maze** — Dedicated: RecursiveDivisionMazeGenerator
+- [x] **Random Walk Maze** — Catalog: category-aware playable visualization
+- [x] **Depth-Limited DFS Maze** — Catalog: category-aware playable visualization
+- [x] **Braided Maze** — Dedicated-equivalent: DFSMazeGenerator with braid chance
+- [x] **Weave Maze** — Catalog: category-aware playable visualization
+- [x] **Theta Maze** — Catalog: category-aware playable visualization
+- [x] **Hex Grid Maze** — Catalog: category-aware playable visualization
+- [x] **Triangular Grid Maze** — Catalog: category-aware playable visualization
+- [x] **Polar Grid Maze** — Catalog: category-aware playable visualization
+- [x] **Voronoi Maze** — Catalog: category-aware playable visualization
+- [x] **Masked Maze** — Catalog: category-aware playable visualization
+- [x] **Braid Conversion** — Catalog: category-aware playable visualization
+- [x] **Dead-End Removal** — Catalog: category-aware playable visualization
+- [x] **Loop Addition** — Catalog: category-aware playable visualization
+- [x] **Path Widening** — Catalog: category-aware playable visualization
+- [x] **Room Insertion Maze** — Catalog: category-aware playable visualization
+- [x] **Longest Path Maze** — Catalog: category-aware playable visualization
+### DUNGEON GENERATION
+
+- [x] **Random Room Placement** — Dedicated-equivalent: RandomRoomDungeonGenerator
+- [x] **Random Room Placement with Corridor Connection** — Dedicated-equivalent: RandomRoomDungeonGenerator
+- [x] **Room Packing** — Catalog: category-aware playable visualization
+- [x] **Room Separation Steering** — Catalog: category-aware playable visualization
+- [x] **Room Growth Algorithm** — Catalog: category-aware playable visualization
+- [x] **Room Accretion** — Catalog: category-aware playable visualization
+- [x] **Room-and-Corridor Generation** — Dedicated-equivalent: RandomRoomDungeonGenerator
+- [x] **Feature Growth Dungeon** — Catalog: category-aware playable visualization
+- [x] **Prefab Room Placement** — Catalog: category-aware playable visualization
+- [x] **Template-Based Dungeon Generation** — Catalog: category-aware playable visualization
+- [x] **BSP Dungeon Generation** — Dedicated: BSPDungeonGenerator
+- [x] **Binary Space Partitioning Dungeon** — Dedicated: BSPDungeonGenerator
+- [x] **Graph-Based Dungeon Generation** — Catalog: category-aware playable visualization
+- [x] **Delaunay Triangulation Dungeon** — Catalog: category-aware playable visualization
+- [x] **Minimum Spanning Tree Dungeon** — Catalog: category-aware playable visualization
+- [x] **Loop-Enhanced Dungeon Graph** — Catalog: category-aware playable visualization
+- [x] **Cellular Automata Cave** — Dedicated: CellularAutomataCaveGenerator
+- [x] **Drunkard Walk Cave** — Dedicated: DrunkardWalkCaveGenerator
+- [x] **Random Walk Cave** — Dedicated-equivalent: DrunkardWalkCaveGenerator
+- [x] **Agent-Based Cave Digging** — Dedicated-equivalent: DrunkardWalkCaveGenerator
+- [x] **Diffusion-Limited Aggregation Cave** — Catalog: category-aware playable visualization
+- [x] **Voronoi Dungeon** — Catalog: category-aware playable visualization
+- [x] **Grammar-Based Dungeon** — Catalog: category-aware playable visualization
+- [x] **Mission Graph Dungeon** — Catalog: category-aware playable visualization
+- [x] **Lock-and-Key Dungeon Generation** — Catalog: category-aware playable visualization
+- [x] **Cyclic Dungeon Generation** — Catalog: category-aware playable visualization
+- [x] **Hub-and-Spoke Dungeon** — Catalog: category-aware playable visualization
+- [x] **Quest-Driven Dungeon Generation** — Catalog: category-aware playable visualization
+- [x] **Spelunky-Style Room Grid Generation** — Catalog: category-aware playable visualization
+- [x] **Isaac-Style Room Graph Generation** — Catalog: category-aware playable visualization
+- [x] **Roguelike Dungeon Generation** — Catalog: category-aware playable visualization
+- [x] **Rogue-Style Dungeon Generation** — Catalog: category-aware playable visualization
+- [x] **Corridor-First Dungeon Generation** — Catalog: category-aware playable visualization
+- [x] **Room-First Dungeon Generation** — Catalog: category-aware playable visualization
+### TERRAIN GENERATION
+
+- [x] **Perlin Noise** — Dedicated: PerlinNoiseHeightmapGenerator
+- [x] **Simplex Noise** — Dedicated: SimplexNoiseHeightmapGenerator
+- [x] **OpenSimplex Noise** — Catalog: category-aware playable visualization
+- [x] **Value Noise** — Catalog: category-aware playable visualization
+- [x] **Gradient Noise** — Catalog: category-aware playable visualization
+- [x] **White Noise Heightmap** — Catalog: category-aware playable visualization
+- [x] **Fractal Noise** — Catalog: category-aware playable visualization
+- [x] **Fractal Brownian Motion** — Catalog: category-aware playable visualization
+- [x] **Ridged Multifractal Noise** — Catalog: category-aware playable visualization
+- [x] **Billow Noise** — Catalog: category-aware playable visualization
+- [x] **Domain Warping** — Catalog: category-aware playable visualization
+- [x] **Turbulence Noise** — Catalog: category-aware playable visualization
+- [x] **Voronoi Noise** — Catalog: category-aware playable visualization
+- [x] **Worley Noise** — Catalog: category-aware playable visualization
+- [x] **Diamond-Square Algorithm** — Dedicated: DiamondSquareTerrainGenerator
+- [x] **Midpoint Displacement** — Catalog: category-aware playable visualization
+- [x] **Fault Formation** — Dedicated: FaultFormationTerrainGenerator
+- [x] **Particle Deposition** — Catalog: category-aware playable visualization
+- [x] **Random Hill Algorithm** — Catalog: category-aware playable visualization
+- [x] **Fractional Brownian Terrain** — Catalog: category-aware playable visualization
+- [x] **Spectral Synthesis** — Catalog: category-aware playable visualization
+- [x] **Fourier Terrain Generation** — Catalog: category-aware playable visualization
+- [x] **Thermal Erosion** — Catalog: category-aware playable visualization
+- [x] **Hydraulic Erosion** — Catalog: category-aware playable visualization
+- [x] **Wind Erosion** — Catalog: category-aware playable visualization
+- [x] **Fluvial Erosion** — Catalog: category-aware playable visualization
+- [x] **Coastal Erosion** — Catalog: category-aware playable visualization
+- [x] **River-Based Terrain Generation** — Catalog: category-aware playable visualization
+- [x] **Drainage Basin Generation** — Catalog: category-aware playable visualization
+- [x] **Watershed Terrain Generation** — Catalog: category-aware playable visualization
+- [x] **Heightmap Blending** — Catalog: category-aware playable visualization
+- [x] **Layered Noise Terrain** — Catalog: category-aware playable visualization
+- [x] **Biome-Based Terrain Generation** — Catalog: category-aware playable visualization
+- [x] **Plate Tectonics Terrain Generation** — Catalog: category-aware playable visualization
+- [x] **Spherical Planet Terrain Generation** — Catalog: category-aware playable visualization
+- [x] **Voxel Terrain Generation** — Catalog: category-aware playable visualization
+- [x] **Marching Cubes Terrain** — Catalog: category-aware playable visualization
+- [x] **Dual Contouring Terrain** — Catalog: category-aware playable visualization
+- [x] **Signed Distance Field Terrain** — Catalog: category-aware playable visualization
+- [x] **Heightfield Terrain Generation** — Catalog: category-aware playable visualization
+### TILE-BASED GENERATION
+
+- [x] **Random Tile Placement** — Catalog: category-aware playable visualization
+- [x] **Rule-Based Tile Generation** — Catalog: category-aware playable visualization
+- [x] **Wang Tiles** — Catalog: category-aware playable visualization
+- [x] **Corner Wang Tiles** — Catalog: category-aware playable visualization
+- [x] **Edge-Matching Tiles** — Catalog: category-aware playable visualization
+- [x] **Constraint-Based Tile Generation** — Catalog: category-aware playable visualization
+- [x] **Constraint Propagation** — Catalog: category-aware playable visualization
+- [x] **Wave Function Collapse** — Dedicated-equivalent: SimpleTiledWFCGenerator
+- [x] **Overlapping Model WFC** — Catalog: category-aware playable visualization
+- [x] **Simple Tiled Model WFC** — Dedicated: SimpleTiledWFCGenerator
+- [x] **Backtracking Tile Solver** — Catalog: category-aware playable visualization
+- [x] **Markov Chain Tile Generation** — Catalog: category-aware playable visualization
+- [x] **Grammar-Based Tile Generation** — Catalog: category-aware playable visualization
+- [x] **L-System Tile Generation** — Catalog: category-aware playable visualization
+- [x] **Cellular Tile Growth** — Catalog: category-aware playable visualization
+- [x] **Autotiling** — Catalog: category-aware playable visualization
+- [x] **Bitmask Autotiling** — Catalog: category-aware playable visualization
+- [x] **Marching Squares Tile Generation** — Catalog: category-aware playable visualization
+- [x] **Terrain Tile Blending** — Catalog: category-aware playable visualization
+- [x] **Road Tile Connection Generation** — Catalog: category-aware playable visualization
+- [x] **Room Tile Connection Generation** — Catalog: category-aware playable visualization
+### CELLULAR AUTOMATA MAP GENERATION
+
+- [x] **Basic Cellular Automata Cave** — Dedicated-equivalent: CellularAutomataCaveGenerator
+- [x] **Conway-Based Map Generation** — Catalog: category-aware playable visualization
+- [x] **Life-Like Cellular Automata** — Catalog: category-aware playable visualization
+- [x] **Majority Rule Cellular Automata** — Catalog: category-aware playable visualization
+- [x] **Cave Smoothing Cellular Automata** — Dedicated-equivalent: CellularAutomataCaveGenerator
+- [x] **Island Generation Cellular Automata** — Catalog: category-aware playable visualization
+- [x] **Forest Fire Cellular Automata** — Catalog: category-aware playable visualization
+- [x] **Diffusion Cellular Automata** — Catalog: category-aware playable visualization
+- [x] **Erosion Cellular Automata** — Catalog: category-aware playable visualization
+- [x] **Multi-State Cellular Automata** — Catalog: category-aware playable visualization
+- [x] **Totalistic Cellular Automata** — Catalog: category-aware playable visualization
+- [x] **Outer-Totalistic Cellular Automata** — Catalog: category-aware playable visualization
+- [x] **Cyclic Cellular Automata** — Catalog: category-aware playable visualization
+- [x] **Reaction-Diffusion Map Generation** — Catalog: category-aware playable visualization
+### GRAPH-BASED MAP GENERATION
+
+- [x] **Random Graph Map Generation** — Catalog: category-aware playable visualization
+- [x] **Planar Graph Generation** — Catalog: category-aware playable visualization
+- [x] **Delaunay Triangulation** — Catalog: category-aware playable visualization
+- [x] **Voronoi Diagram Generation** — Catalog: category-aware playable visualization
+- [x] **Minimum Spanning Tree** — Catalog: category-aware playable visualization
+- [x] **Relative Neighborhood Graph** — Catalog: category-aware playable visualization
+- [x] **Gabriel Graph** — Catalog: category-aware playable visualization
+- [x] **Graph Grammar Generation** — Catalog: category-aware playable visualization
+- [x] **Mission Graph Generation** — Catalog: category-aware playable visualization
+- [x] **Quest Graph Generation** — Catalog: category-aware playable visualization
+- [x] **Room Graph Generation** — Catalog: category-aware playable visualization
+- [x] **Region Adjacency Graph** — Catalog: category-aware playable visualization
+- [x] **Navigation Graph Generation** — Catalog: category-aware playable visualization
+- [x] **Road Graph Generation** — Catalog: category-aware playable visualization
+- [x] **Connectivity Graph Generation** — Catalog: category-aware playable visualization
+- [x] **Loop Insertion Graph Algorithm** — Catalog: category-aware playable visualization
+- [x] **Hub-and-Spoke Graph Generation** — Catalog: category-aware playable visualization
+- [x] **Tree-Based Map Generation** — Catalog: category-aware playable visualization
+- [x] **Cyclic Graph Map Generation** — Catalog: category-aware playable visualization
+### NOISE-BASED MAP GENERATION
+
+- [x] **White Noise** — Catalog: category-aware playable visualization
+- [x] **Value Noise** — Catalog: category-aware playable visualization
+- [x] **Gradient Noise** — Catalog: category-aware playable visualization
+- [x] **Perlin Noise** — Dedicated: PerlinNoiseHeightmapGenerator
+- [x] **Simplex Noise** — Dedicated: SimplexNoiseHeightmapGenerator
+- [x] **OpenSimplex Noise** — Catalog: category-aware playable visualization
+- [x] **Worley Noise** — Catalog: category-aware playable visualization
+- [x] **Voronoi Noise** — Catalog: category-aware playable visualization
+- [x] **Gabor Noise** — Catalog: category-aware playable visualization
+- [x] **Wavelet Noise** — Catalog: category-aware playable visualization
+- [x] **Blue Noise Sampling** — Catalog: category-aware playable visualization
+- [x] **Pink Noise** — Catalog: category-aware playable visualization
+- [x] **Brownian Noise** — Catalog: category-aware playable visualization
+- [x] **Fractal Brownian Motion** — Catalog: category-aware playable visualization
+- [x] **Ridged Noise** — Catalog: category-aware playable visualization
+- [x] **Billow Noise** — Catalog: category-aware playable visualization
+- [x] **Domain Warped Noise** — Catalog: category-aware playable visualization
+- [x] **Curl Noise** — Catalog: category-aware playable visualization
+- [x] **Turbulence Noise** — Catalog: category-aware playable visualization
+- [x] **Sparse Convolution Noise** — Catalog: category-aware playable visualization
+- [x] **Cellular Noise** — Catalog: category-aware playable visualization
+### SAMPLING-BASED GENERATION
+
+- [x] **Uniform Random Sampling** — Catalog: category-aware playable visualization
+- [x] **Rejection Sampling** — Catalog: category-aware playable visualization
+- [x] **Poisson Disk Sampling** — Catalog: category-aware playable visualization
+- [x] **Bridson Poisson Disk Sampling** — Catalog: category-aware playable visualization
+- [x] **Blue Noise Sampling** — Catalog: category-aware playable visualization
+- [x] **Stratified Sampling** — Catalog: category-aware playable visualization
+- [x] **Jittered Grid Sampling** — Catalog: category-aware playable visualization
+- [x] **Halton Sequence Sampling** — Catalog: category-aware playable visualization
+- [x] **Sobol Sequence Sampling** — Catalog: category-aware playable visualization
+- [x] **Low-Discrepancy Sampling** — Catalog: category-aware playable visualization
+- [x] **Lloyd Relaxation** — Catalog: category-aware playable visualization
+- [x] **Centroidal Voronoi Tessellation** — Catalog: category-aware playable visualization
+- [x] **Weighted Random Sampling** — Catalog: category-aware playable visualization
+- [x] **Importance Sampling** — Catalog: category-aware playable visualization
+### SPACE PARTITIONING
+
+- [x] **Binary Space Partitioning** — Catalog: category-aware playable visualization
+- [x] **Quadtrees** — Catalog: category-aware playable visualization
+- [x] **Octrees** — Catalog: category-aware playable visualization
+- [x] **KD-Trees** — Catalog: category-aware playable visualization
+- [x] **Voronoi Partitioning** — Catalog: category-aware playable visualization
+- [x] **Delaunay Partitioning** — Catalog: category-aware playable visualization
+- [x] **Grid Partitioning** — Catalog: category-aware playable visualization
+- [x] **Recursive Subdivision** — Catalog: category-aware playable visualization
+- [x] **Split-and-Merge Partitioning** — Catalog: category-aware playable visualization
+- [x] **Region Growing** — Catalog: category-aware playable visualization
+- [x] **Flood Fill Region Partitioning** — Catalog: category-aware playable visualization
+- [x] **Watershed Partitioning** — Catalog: category-aware playable visualization
+- [x] **Convex Partitioning** — Catalog: category-aware playable visualization
+- [x] **Polygon Subdivision** — Catalog: category-aware playable visualization
+- [x] **City Block Subdivision** — Catalog: category-aware playable visualization
+### CITY / URBAN GENERATION
+
+- [x] **L-System Road Generation** — Catalog: category-aware playable visualization
+- [x] **Agent-Based Road Growth** — Catalog: category-aware playable visualization
+- [x] **Tensor Field Road Generation** — Catalog: category-aware playable visualization
+- [x] **Voronoi City Districts** — Catalog: category-aware playable visualization
+- [x] **City Block Subdivision** — Catalog: category-aware playable visualization
+- [x] **Parcel Subdivision** — Catalog: category-aware playable visualization
+- [x] **Shape Grammar Buildings** — Catalog: category-aware playable visualization
+- [x] **Procedural Building Generation** — Catalog: category-aware playable visualization
+- [x] **Procedural Street Network Generation** — Catalog: category-aware playable visualization
+- [x] **Grid-Based City Generation** — Catalog: category-aware playable visualization
+- [x] **Radial City Generation** — Catalog: category-aware playable visualization
+- [x] **Organic City Growth** — Catalog: category-aware playable visualization
+- [x] **Manhattan Grid Generation** — Catalog: category-aware playable visualization
+- [x] **Medieval City Generation** — Catalog: category-aware playable visualization
+- [x] **Road Hierarchy Generation** — Catalog: category-aware playable visualization
+- [x] **District-Based City Generation** — Catalog: category-aware playable visualization
+- [x] **Population Density Map Generation** — Catalog: category-aware playable visualization
+- [x] **Land-Use Map Generation** — Catalog: category-aware playable visualization
+- [x] **Zoning-Based City Generation** — Catalog: category-aware playable visualization
+- [x] **Building Footprint Generation** — Catalog: category-aware playable visualization
+### WORLD / REGION GENERATION
+
+- [x] **Voronoi Region Generation** — Catalog: category-aware playable visualization
+- [x] **Biome Map Generation** — Catalog: category-aware playable visualization
+- [x] **Climate Simulation Map Generation** — Catalog: category-aware playable visualization
+- [x] **Temperature Map Generation** — Catalog: category-aware playable visualization
+- [x] **Moisture Map Generation** — Catalog: category-aware playable visualization
+- [x] **Elevation-Based Region Generation** — Catalog: category-aware playable visualization
+- [x] **Plate Tectonics World Generation** — Catalog: category-aware playable visualization
+- [x] **Erosion-Based World Generation** — Catalog: category-aware playable visualization
+- [x] **River Network Generation** — Catalog: category-aware playable visualization
+- [x] **Watershed Generation** — Catalog: category-aware playable visualization
+- [x] **Drainage Basin Generation** — Catalog: category-aware playable visualization
+- [x] **Political Border Generation** — Catalog: category-aware playable visualization
+- [x] **Civilization Map Generation** — Catalog: category-aware playable visualization
+- [x] **Resource Distribution Generation** — Catalog: category-aware playable visualization
+- [x] **Island Generation** — Catalog: category-aware playable visualization
+- [x] **Continent Generation** — Catalog: category-aware playable visualization
+- [x] **Archipelago Generation** — Catalog: category-aware playable visualization
+- [x] **Spherical World Generation** — Catalog: category-aware playable visualization
+- [x] **Hex World Generation** — Catalog: category-aware playable visualization
+- [x] **Chunk-Based Infinite World Generation** — Catalog: category-aware playable visualization
+### ROAD / PATH / RIVER GENERATION
+
+- [x] **A* Path-Based Road Generation** — Catalog: category-aware playable visualization
+- [x] **Dijkstra Path-Based Road Generation** — Catalog: category-aware playable visualization
+- [x] **Minimum Spanning Tree Road Network** — Catalog: category-aware playable visualization
+- [x] **Steiner Tree Road Network** — Catalog: category-aware playable visualization
+- [x] **L-System Roads** — Catalog: category-aware playable visualization
+- [x] **Agent-Based Roads** — Catalog: category-aware playable visualization
+- [x] **Tensor Field Roads** — Catalog: category-aware playable visualization
+- [x] **Spline-Based Road Generation** — Catalog: category-aware playable visualization
+- [x] **Bezier Road Generation** — Catalog: category-aware playable visualization
+- [x] **River Flow Accumulation** — Catalog: category-aware playable visualization
+- [x] **Downhill River Tracing** — Catalog: category-aware playable visualization
+- [x] **Drainage Network Generation** — Catalog: category-aware playable visualization
+- [x] **Meandering River Generation** — Catalog: category-aware playable visualization
+- [x] **Road Connection Graph** — Catalog: category-aware playable visualization
+- [x] **Path Smoothing** — Catalog: category-aware playable visualization
+- [x] **Path Widening** — Catalog: category-aware playable visualization
+- [x] **Corridor Carving** — Catalog: category-aware playable visualization
+- [x] **Tunnel Generation** — Catalog: category-aware playable visualization
+### GRAMMAR-BASED GENERATION
+
+- [x] **Shape Grammar** — Catalog: category-aware playable visualization
+- [x] **Graph Grammar** — Catalog: category-aware playable visualization
+- [x] **String Grammar** — Catalog: category-aware playable visualization
+- [x] **L-System Generation** — Catalog: category-aware playable visualization
+- [x] **Stochastic L-System** — Catalog: category-aware playable visualization
+- [x] **Context-Sensitive Grammar** — Catalog: category-aware playable visualization
+- [x] **Context-Free Grammar** — Catalog: category-aware playable visualization
+- [x] **Split Grammar** — Catalog: category-aware playable visualization
+- [x] **Production Rule Generation** — Catalog: category-aware playable visualization
+- [x] **Mission Grammar** — Catalog: category-aware playable visualization
+- [x] **Quest Grammar** — Catalog: category-aware playable visualization
+- [x] **Building Grammar** — Catalog: category-aware playable visualization
+- [x] **Dungeon Grammar** — Catalog: category-aware playable visualization
+- [x] **Road Grammar** — Catalog: category-aware playable visualization
+- [x] **Tile Grammar** — Catalog: category-aware playable visualization
+### AGENT-BASED GENERATION
+
+- [x] **Random Walker** — Catalog: category-aware playable visualization
+- [x] **Drunkard Walk** — Catalog: category-aware playable visualization
+- [x] **Multiple Random Walkers** — Catalog: category-aware playable visualization
+- [x] **Agent-Based Cave Digging** — Dedicated-equivalent: DrunkardWalkCaveGenerator
+- [x] **Agent-Based Road Growth** — Catalog: category-aware playable visualization
+- [x] **Agent-Based City Growth** — Catalog: category-aware playable visualization
+- [x] **Ant Colony Map Generation** — Catalog: category-aware playable visualization
+- [x] **Swarm-Based Generation** — Catalog: category-aware playable visualization
+- [x] **Boids-Based Spatial Generation** — Catalog: category-aware playable visualization
+- [x] **Settler Agent Simulation** — Catalog: category-aware playable visualization
+- [x] **Civilization Growth Simulation** — Catalog: category-aware playable visualization
+- [x] **Traffic-Driven Road Growth** — Catalog: category-aware playable visualization
+- [x] **Resource-Seeking Agent Generation** — Catalog: category-aware playable visualization
+- [x] **Enemy/Encounter Placement Agents** — Catalog: category-aware playable visualization
+- [x] **Room Digging Agents** — Catalog: category-aware playable visualization
+### EVOLUTIONARY / OPTIMIZATION-BASED GENERATION
+
+- [x] **Genetic Algorithm Map Generation** — Catalog: category-aware playable visualization
+- [x] **Evolutionary Dungeon Generation** — Catalog: category-aware playable visualization
+- [x] **Evolutionary Terrain Generation** — Catalog: category-aware playable visualization
+- [x] **Genetic Programming Generation** — Catalog: category-aware playable visualization
+- [x] **Neuroevolution Map Generation** — Catalog: category-aware playable visualization
+- [x] **Simulated Annealing Map Optimization** — Catalog: category-aware playable visualization
+- [x] **Constraint Satisfaction Optimization** — Catalog: category-aware playable visualization
+- [x] **Hill Climbing Map Optimization** — Catalog: category-aware playable visualization
+- [x] **Random Mutation Map Generation** — Catalog: category-aware playable visualization
+- [x] **Fitness-Based Dungeon Generation** — Catalog: category-aware playable visualization
+- [x] **Multi-Objective Map Generation** — Catalog: category-aware playable visualization
+- [x] **MAP-Elites Procedural Generation** — Catalog: category-aware playable visualization
+- [x] **Quality-Diversity Generation** — Catalog: category-aware playable visualization
+### AI / ML-BASED MAP GENERATION
+
+- [x] **Markov Chain Map Generation** — Catalog: category-aware playable visualization
+- [x] **Markov Random Field Map Generation** — Catalog: category-aware playable visualization
+- [x] **Hidden Markov Model Generation** — Catalog: category-aware playable visualization
+- [x] **Bayesian Network Map Generation** — Catalog: category-aware playable visualization
+- [x] **Neural Cellular Automata** — Catalog: category-aware playable visualization
+- [x] **Autoencoder Map Generation** — Catalog: category-aware playable visualization
+- [x] **Variational Autoencoder Map Generation** — Catalog: category-aware playable visualization
+- [x] **GAN-Based Map Generation** — Catalog: category-aware playable visualization
+- [x] **Diffusion-Based Map Generation** — Catalog: category-aware playable visualization
+- [x] **Transformer-Based Map Generation** — Catalog: category-aware playable visualization
+- [x] **Reinforcement Learning Map Generation** — Catalog: category-aware playable visualization
+- [x] **Imitation Learning Map Generation** — Catalog: category-aware playable visualization
+- [x] **Procedural Content Generation via Machine Learning** — Catalog: category-aware playable visualization
+- [x] **PCGML** — Catalog: category-aware playable visualization
+- [x] **Large Language Model Assisted Map Generation** — Catalog: category-aware playable visualization
+### VOXEL / 3D MAP GENERATION
+
+- [x] **Voxel Terrain Generation** — Catalog: category-aware playable visualization
+- [x] **Chunk-Based Voxel Generation** — Catalog: category-aware playable visualization
+- [x] **Marching Cubes** — Catalog: category-aware playable visualization
+- [x] **Dual Contouring** — Catalog: category-aware playable visualization
+- [x] **Surface Nets** — Catalog: category-aware playable visualization
+- [x] **Sparse Voxel Octree Generation** — Catalog: category-aware playable visualization
+- [x] **Signed Distance Field Generation** — Catalog: category-aware playable visualization
+- [x] **Constructive Solid Geometry** — Catalog: category-aware playable visualization
+- [x] **3D Cellular Automata** — Catalog: category-aware playable visualization
+- [x] **3D Perlin Noise Caves** — Catalog: category-aware playable visualization
+- [x] **3D Simplex Noise Caves** — Catalog: category-aware playable visualization
+- [x] **Worm Cave Generation** — Catalog: category-aware playable visualization
+- [x] **Noise Worms** — Catalog: category-aware playable visualization
+- [x] **Tunnel Worms** — Catalog: category-aware playable visualization
+- [x] **Cave Network Generation** — Catalog: category-aware playable visualization
+- [x] **Voxel Dungeon Generation** — Catalog: category-aware playable visualization
+- [x] **Procedural Cave Tubes** — Catalog: category-aware playable visualization
+- [x] **Volumetric Terrain Generation** — Catalog: category-aware playable visualization
+### PLANET / SPHERICAL MAP GENERATION
+
+- [x] **Cube Sphere Terrain Generation** — Catalog: category-aware playable visualization
+- [x] **Icosphere Subdivision** — Catalog: category-aware playable visualization
+- [x] **Spherical Voronoi Generation** — Catalog: category-aware playable visualization
+- [x] **Spherical Noise Terrain** — Catalog: category-aware playable visualization
+- [x] **Plate Tectonics Planet Generation** — Catalog: category-aware playable visualization
+- [x] **Climate-Based Planet Generation** — Catalog: category-aware playable visualization
+- [x] **Biome-Based Planet Generation** — Catalog: category-aware playable visualization
+- [x] **Ocean/Land Mask Generation** — Catalog: category-aware playable visualization
+- [x] **Latitude-Based Temperature Generation** — Catalog: category-aware playable visualization
+- [x] **Atmospheric Simulation Map** — Catalog: category-aware playable visualization
+- [x] **Planetary Erosion** — Catalog: category-aware playable visualization
+- [x] **Crater Generation** — Catalog: category-aware playable visualization
+- [x] **Asteroid Terrain Generation** — Catalog: category-aware playable visualization
+- [x] **Gas Giant Texture Generation** — Catalog: category-aware playable visualization
+- [x] **Procedural Moon Generation** — Catalog: category-aware playable visualization
+### PLACEMENT / DECORATION ALGORITHMS
+
+- [x] **Random Object Placement** — Catalog: category-aware playable visualization
+- [x] **Poisson Disk Object Placement** — Catalog: category-aware playable visualization
+- [x] **Blue Noise Object Placement** — Catalog: category-aware playable visualization
+- [x] **Weighted Biome Placement** — Catalog: category-aware playable visualization
+- [x] **Rule-Based Object Placement** — Catalog: category-aware playable visualization
+- [x] **Constraint-Based Object Placement** — Catalog: category-aware playable visualization
+- [x] **Scatter Placement** — Catalog: category-aware playable visualization
+- [x] **Cluster Placement** — Catalog: category-aware playable visualization
+- [x] **Resource Node Placement** — Catalog: category-aware playable visualization
+- [x] **Enemy Spawn Placement** — Catalog: category-aware playable visualization
+- [x] **Loot Placement** — Catalog: category-aware playable visualization
+- [x] **Encounter Placement** — Catalog: category-aware playable visualization
+- [x] **Landmark Placement** — Catalog: category-aware playable visualization
+- [x] **Prop Placement** — Catalog: category-aware playable visualization
+- [x] **Vegetation Placement** — Catalog: category-aware playable visualization
+- [x] **Tree Distribution** — Catalog: category-aware playable visualization
+- [x] **Rock Distribution** — Catalog: category-aware playable visualization
+- [x] **Foliage Generation** — Catalog: category-aware playable visualization
+- [x] **Navmesh-Aware Placement** — Catalog: category-aware playable visualization
+### HYBRID MAP GENERATION
+
+- [x] **Noise + Cellular Automata** — Catalog: category-aware playable visualization
+- [x] **Noise + Voronoi** — Catalog: category-aware playable visualization
+- [x] **Noise + Erosion** — Catalog: category-aware playable visualization
+- [x] **BSP + Cellular Automata** — Catalog: category-aware playable visualization
+- [x] **Room Graph + Corridor Carving** — Catalog: category-aware playable visualization
+- [x] **WFC + Grammar** — Catalog: category-aware playable visualization
+- [x] **WFC + Handcrafted Prefabs** — Catalog: category-aware playable visualization
+- [x] **Terrain + Biome Rules** — Catalog: category-aware playable visualization
+- [x] **Terrain + River Simulation** — Catalog: category-aware playable visualization
+- [x] **City Grammar + Road Agents** — Catalog: category-aware playable visualization
+- [x] **Dungeon Graph + Lock-and-Key Rules** — Catalog: category-aware playable visualization
+- [x] **Evolutionary + Constraint-Based Generation** — Catalog: category-aware playable visualization
+- [x] **ML-Assisted + Rule-Based Generation** — Catalog: category-aware playable visualization
+- [x] **Chunk-Based Hybrid Generation** — Catalog: category-aware playable visualization
+
+## Still Catalog, Not Dedicated Yet
+
+아래 항목들은 지금도 앱에서 실행/재생은 되지만, 전용 알고리즘 클래스로 승격하면 더 정확한 원리 제어와 더 좋은 단계 시각화를 줄 수 있습니다.
+
+- [ ] **Eller?셲 Algorithm** (MAZE GENERATION)
+- [ ] **Random Walk Maze** (MAZE GENERATION)
+- [ ] **Depth-Limited DFS Maze** (MAZE GENERATION)
+- [ ] **Weave Maze** (MAZE GENERATION)
+- [ ] **Theta Maze** (MAZE GENERATION)
+- [ ] **Hex Grid Maze** (MAZE GENERATION)
+- [ ] **Triangular Grid Maze** (MAZE GENERATION)
+- [ ] **Polar Grid Maze** (MAZE GENERATION)
+- [ ] **Voronoi Maze** (MAZE GENERATION)
+- [ ] **Masked Maze** (MAZE GENERATION)
+- [ ] **Braid Conversion** (MAZE GENERATION)
+- [ ] **Dead-End Removal** (MAZE GENERATION)
+- [ ] **Loop Addition** (MAZE GENERATION)
+- [ ] **Path Widening** (MAZE GENERATION)
+- [ ] **Room Insertion Maze** (MAZE GENERATION)
+- [ ] **Longest Path Maze** (MAZE GENERATION)
+- [ ] **Room Packing** (DUNGEON GENERATION)
+- [ ] **Room Separation Steering** (DUNGEON GENERATION)
+- [ ] **Room Growth Algorithm** (DUNGEON GENERATION)
+- [ ] **Room Accretion** (DUNGEON GENERATION)
+- [ ] **Feature Growth Dungeon** (DUNGEON GENERATION)
+- [ ] **Prefab Room Placement** (DUNGEON GENERATION)
+- [ ] **Template-Based Dungeon Generation** (DUNGEON GENERATION)
+- [ ] **Graph-Based Dungeon Generation** (DUNGEON GENERATION)
+- [ ] **Delaunay Triangulation Dungeon** (DUNGEON GENERATION)
+- [ ] **Minimum Spanning Tree Dungeon** (DUNGEON GENERATION)
+- [ ] **Loop-Enhanced Dungeon Graph** (DUNGEON GENERATION)
+- [ ] **Diffusion-Limited Aggregation Cave** (DUNGEON GENERATION)
+- [ ] **Voronoi Dungeon** (DUNGEON GENERATION)
+- [ ] **Grammar-Based Dungeon** (DUNGEON GENERATION)
+- [ ] **Mission Graph Dungeon** (DUNGEON GENERATION)
+- [ ] **Lock-and-Key Dungeon Generation** (DUNGEON GENERATION)
+- [ ] **Cyclic Dungeon Generation** (DUNGEON GENERATION)
+- [ ] **Hub-and-Spoke Dungeon** (DUNGEON GENERATION)
+- [ ] **Quest-Driven Dungeon Generation** (DUNGEON GENERATION)
+- [ ] **Spelunky-Style Room Grid Generation** (DUNGEON GENERATION)
+- [ ] **Isaac-Style Room Graph Generation** (DUNGEON GENERATION)
+- [ ] **Roguelike Dungeon Generation** (DUNGEON GENERATION)
+- [ ] **Rogue-Style Dungeon Generation** (DUNGEON GENERATION)
+- [ ] **Corridor-First Dungeon Generation** (DUNGEON GENERATION)
+- [ ] **Room-First Dungeon Generation** (DUNGEON GENERATION)
+- [ ] **OpenSimplex Noise** (TERRAIN GENERATION)
+- [ ] **Value Noise** (TERRAIN GENERATION)
+- [ ] **Gradient Noise** (TERRAIN GENERATION)
+- [ ] **White Noise Heightmap** (TERRAIN GENERATION)
+- [ ] **Fractal Noise** (TERRAIN GENERATION)
+- [ ] **Fractal Brownian Motion** (TERRAIN GENERATION)
+- [ ] **Ridged Multifractal Noise** (TERRAIN GENERATION)
+- [ ] **Billow Noise** (TERRAIN GENERATION)
+- [ ] **Domain Warping** (TERRAIN GENERATION)
+- [ ] **Turbulence Noise** (TERRAIN GENERATION)
+- [ ] **Voronoi Noise** (TERRAIN GENERATION)
+- [ ] **Worley Noise** (TERRAIN GENERATION)
+- [ ] **Midpoint Displacement** (TERRAIN GENERATION)
+- [ ] **Particle Deposition** (TERRAIN GENERATION)
+- [ ] **Random Hill Algorithm** (TERRAIN GENERATION)
+- [ ] **Fractional Brownian Terrain** (TERRAIN GENERATION)
+- [ ] **Spectral Synthesis** (TERRAIN GENERATION)
+- [ ] **Fourier Terrain Generation** (TERRAIN GENERATION)
+- [ ] **Thermal Erosion** (TERRAIN GENERATION)
+- [ ] **Hydraulic Erosion** (TERRAIN GENERATION)
+- [ ] **Wind Erosion** (TERRAIN GENERATION)
+- [ ] **Fluvial Erosion** (TERRAIN GENERATION)
+- [ ] **Coastal Erosion** (TERRAIN GENERATION)
+- [ ] **River-Based Terrain Generation** (TERRAIN GENERATION)
+- [ ] **Drainage Basin Generation** (TERRAIN GENERATION)
+- [ ] **Watershed Terrain Generation** (TERRAIN GENERATION)
+- [ ] **Heightmap Blending** (TERRAIN GENERATION)
+- [ ] **Layered Noise Terrain** (TERRAIN GENERATION)
+- [ ] **Biome-Based Terrain Generation** (TERRAIN GENERATION)
+- [ ] **Plate Tectonics Terrain Generation** (TERRAIN GENERATION)
+- [ ] **Spherical Planet Terrain Generation** (TERRAIN GENERATION)
+- [ ] **Voxel Terrain Generation** (TERRAIN GENERATION)
+- [ ] **Marching Cubes Terrain** (TERRAIN GENERATION)
+- [ ] **Dual Contouring Terrain** (TERRAIN GENERATION)
+- [ ] **Signed Distance Field Terrain** (TERRAIN GENERATION)
+- [ ] **Heightfield Terrain Generation** (TERRAIN GENERATION)
+- [ ] **Random Tile Placement** (TILE-BASED GENERATION)
+- [ ] **Rule-Based Tile Generation** (TILE-BASED GENERATION)
+- [ ] **Wang Tiles** (TILE-BASED GENERATION)
+- [ ] **Corner Wang Tiles** (TILE-BASED GENERATION)
+- [ ] **Edge-Matching Tiles** (TILE-BASED GENERATION)
+- [ ] **Constraint-Based Tile Generation** (TILE-BASED GENERATION)
+- [ ] **Constraint Propagation** (TILE-BASED GENERATION)
+- [ ] **Overlapping Model WFC** (TILE-BASED GENERATION)
+- [ ] **Backtracking Tile Solver** (TILE-BASED GENERATION)
+- [ ] **Markov Chain Tile Generation** (TILE-BASED GENERATION)
+- [ ] **Grammar-Based Tile Generation** (TILE-BASED GENERATION)
+- [ ] **L-System Tile Generation** (TILE-BASED GENERATION)
+- [ ] **Cellular Tile Growth** (TILE-BASED GENERATION)
+- [ ] **Autotiling** (TILE-BASED GENERATION)
+- [ ] **Bitmask Autotiling** (TILE-BASED GENERATION)
+- [ ] **Marching Squares Tile Generation** (TILE-BASED GENERATION)
+- [ ] **Terrain Tile Blending** (TILE-BASED GENERATION)
+- [ ] **Road Tile Connection Generation** (TILE-BASED GENERATION)
+- [ ] **Room Tile Connection Generation** (TILE-BASED GENERATION)
+- [ ] **Conway-Based Map Generation** (CELLULAR AUTOMATA MAP GENERATION)
+- [ ] **Life-Like Cellular Automata** (CELLULAR AUTOMATA MAP GENERATION)
+- [ ] **Majority Rule Cellular Automata** (CELLULAR AUTOMATA MAP GENERATION)
+- [ ] **Island Generation Cellular Automata** (CELLULAR AUTOMATA MAP GENERATION)
+- [ ] **Forest Fire Cellular Automata** (CELLULAR AUTOMATA MAP GENERATION)
+- [ ] **Diffusion Cellular Automata** (CELLULAR AUTOMATA MAP GENERATION)
+- [ ] **Erosion Cellular Automata** (CELLULAR AUTOMATA MAP GENERATION)
+- [ ] **Multi-State Cellular Automata** (CELLULAR AUTOMATA MAP GENERATION)
+- [ ] **Totalistic Cellular Automata** (CELLULAR AUTOMATA MAP GENERATION)
+- [ ] **Outer-Totalistic Cellular Automata** (CELLULAR AUTOMATA MAP GENERATION)
+- [ ] **Cyclic Cellular Automata** (CELLULAR AUTOMATA MAP GENERATION)
+- [ ] **Reaction-Diffusion Map Generation** (CELLULAR AUTOMATA MAP GENERATION)
+- [ ] **Random Graph Map Generation** (GRAPH-BASED MAP GENERATION)
+- [ ] **Planar Graph Generation** (GRAPH-BASED MAP GENERATION)
+- [ ] **Delaunay Triangulation** (GRAPH-BASED MAP GENERATION)
+- [ ] **Voronoi Diagram Generation** (GRAPH-BASED MAP GENERATION)
+- [ ] **Minimum Spanning Tree** (GRAPH-BASED MAP GENERATION)
+- [ ] **Relative Neighborhood Graph** (GRAPH-BASED MAP GENERATION)
+- [ ] **Gabriel Graph** (GRAPH-BASED MAP GENERATION)
+- [ ] **Graph Grammar Generation** (GRAPH-BASED MAP GENERATION)
+- [ ] **Mission Graph Generation** (GRAPH-BASED MAP GENERATION)
+- [ ] **Quest Graph Generation** (GRAPH-BASED MAP GENERATION)
+- [ ] **Room Graph Generation** (GRAPH-BASED MAP GENERATION)
+- [ ] **Region Adjacency Graph** (GRAPH-BASED MAP GENERATION)
+- [ ] **Navigation Graph Generation** (GRAPH-BASED MAP GENERATION)
+- [ ] **Road Graph Generation** (GRAPH-BASED MAP GENERATION)
+- [ ] **Connectivity Graph Generation** (GRAPH-BASED MAP GENERATION)
+- [ ] **Loop Insertion Graph Algorithm** (GRAPH-BASED MAP GENERATION)
+- [ ] **Hub-and-Spoke Graph Generation** (GRAPH-BASED MAP GENERATION)
+- [ ] **Tree-Based Map Generation** (GRAPH-BASED MAP GENERATION)
+- [ ] **Cyclic Graph Map Generation** (GRAPH-BASED MAP GENERATION)
+- [ ] **White Noise** (NOISE-BASED MAP GENERATION)
+- [ ] **Value Noise** (NOISE-BASED MAP GENERATION)
+- [ ] **Gradient Noise** (NOISE-BASED MAP GENERATION)
+- [ ] **OpenSimplex Noise** (NOISE-BASED MAP GENERATION)
+- [ ] **Worley Noise** (NOISE-BASED MAP GENERATION)
+- [ ] **Voronoi Noise** (NOISE-BASED MAP GENERATION)
+- [ ] **Gabor Noise** (NOISE-BASED MAP GENERATION)
+- [ ] **Wavelet Noise** (NOISE-BASED MAP GENERATION)
+- [ ] **Blue Noise Sampling** (NOISE-BASED MAP GENERATION)
+- [ ] **Pink Noise** (NOISE-BASED MAP GENERATION)
+- [ ] **Brownian Noise** (NOISE-BASED MAP GENERATION)
+- [ ] **Fractal Brownian Motion** (NOISE-BASED MAP GENERATION)
+- [ ] **Ridged Noise** (NOISE-BASED MAP GENERATION)
+- [ ] **Billow Noise** (NOISE-BASED MAP GENERATION)
+- [ ] **Domain Warped Noise** (NOISE-BASED MAP GENERATION)
+- [ ] **Curl Noise** (NOISE-BASED MAP GENERATION)
+- [ ] **Turbulence Noise** (NOISE-BASED MAP GENERATION)
+- [ ] **Sparse Convolution Noise** (NOISE-BASED MAP GENERATION)
+- [ ] **Cellular Noise** (NOISE-BASED MAP GENERATION)
+- [ ] **Uniform Random Sampling** (SAMPLING-BASED GENERATION)
+- [ ] **Rejection Sampling** (SAMPLING-BASED GENERATION)
+- [ ] **Poisson Disk Sampling** (SAMPLING-BASED GENERATION)
+- [ ] **Bridson Poisson Disk Sampling** (SAMPLING-BASED GENERATION)
+- [ ] **Blue Noise Sampling** (SAMPLING-BASED GENERATION)
+- [ ] **Stratified Sampling** (SAMPLING-BASED GENERATION)
+- [ ] **Jittered Grid Sampling** (SAMPLING-BASED GENERATION)
+- [ ] **Halton Sequence Sampling** (SAMPLING-BASED GENERATION)
+- [ ] **Sobol Sequence Sampling** (SAMPLING-BASED GENERATION)
+- [ ] **Low-Discrepancy Sampling** (SAMPLING-BASED GENERATION)
+- [ ] **Lloyd Relaxation** (SAMPLING-BASED GENERATION)
+- [ ] **Centroidal Voronoi Tessellation** (SAMPLING-BASED GENERATION)
+- [ ] **Weighted Random Sampling** (SAMPLING-BASED GENERATION)
+- [ ] **Importance Sampling** (SAMPLING-BASED GENERATION)
+- [ ] **Binary Space Partitioning** (SPACE PARTITIONING)
+- [ ] **Quadtrees** (SPACE PARTITIONING)
+- [ ] **Octrees** (SPACE PARTITIONING)
+- [ ] **KD-Trees** (SPACE PARTITIONING)
+- [ ] **Voronoi Partitioning** (SPACE PARTITIONING)
+- [ ] **Delaunay Partitioning** (SPACE PARTITIONING)
+- [ ] **Grid Partitioning** (SPACE PARTITIONING)
+- [ ] **Recursive Subdivision** (SPACE PARTITIONING)
+- [ ] **Split-and-Merge Partitioning** (SPACE PARTITIONING)
+- [ ] **Region Growing** (SPACE PARTITIONING)
+- [ ] **Flood Fill Region Partitioning** (SPACE PARTITIONING)
+- [ ] **Watershed Partitioning** (SPACE PARTITIONING)
+- [ ] **Convex Partitioning** (SPACE PARTITIONING)
+- [ ] **Polygon Subdivision** (SPACE PARTITIONING)
+- [ ] **City Block Subdivision** (SPACE PARTITIONING)
+- [ ] **L-System Road Generation** (CITY / URBAN GENERATION)
+- [ ] **Agent-Based Road Growth** (CITY / URBAN GENERATION)
+- [ ] **Tensor Field Road Generation** (CITY / URBAN GENERATION)
+- [ ] **Voronoi City Districts** (CITY / URBAN GENERATION)
+- [ ] **City Block Subdivision** (CITY / URBAN GENERATION)
+- [ ] **Parcel Subdivision** (CITY / URBAN GENERATION)
+- [ ] **Shape Grammar Buildings** (CITY / URBAN GENERATION)
+- [ ] **Procedural Building Generation** (CITY / URBAN GENERATION)
+- [ ] **Procedural Street Network Generation** (CITY / URBAN GENERATION)
+- [ ] **Grid-Based City Generation** (CITY / URBAN GENERATION)
+- [ ] **Radial City Generation** (CITY / URBAN GENERATION)
+- [ ] **Organic City Growth** (CITY / URBAN GENERATION)
+- [ ] **Manhattan Grid Generation** (CITY / URBAN GENERATION)
+- [ ] **Medieval City Generation** (CITY / URBAN GENERATION)
+- [ ] **Road Hierarchy Generation** (CITY / URBAN GENERATION)
+- [ ] **District-Based City Generation** (CITY / URBAN GENERATION)
+- [ ] **Population Density Map Generation** (CITY / URBAN GENERATION)
+- [ ] **Land-Use Map Generation** (CITY / URBAN GENERATION)
+- [ ] **Zoning-Based City Generation** (CITY / URBAN GENERATION)
+- [ ] **Building Footprint Generation** (CITY / URBAN GENERATION)
+- [ ] **Voronoi Region Generation** (WORLD / REGION GENERATION)
+- [ ] **Biome Map Generation** (WORLD / REGION GENERATION)
+- [ ] **Climate Simulation Map Generation** (WORLD / REGION GENERATION)
+- [ ] **Temperature Map Generation** (WORLD / REGION GENERATION)
+- [ ] **Moisture Map Generation** (WORLD / REGION GENERATION)
+- [ ] **Elevation-Based Region Generation** (WORLD / REGION GENERATION)
+- [ ] **Plate Tectonics World Generation** (WORLD / REGION GENERATION)
+- [ ] **Erosion-Based World Generation** (WORLD / REGION GENERATION)
+- [ ] **River Network Generation** (WORLD / REGION GENERATION)
+- [ ] **Watershed Generation** (WORLD / REGION GENERATION)
+- [ ] **Drainage Basin Generation** (WORLD / REGION GENERATION)
+- [ ] **Political Border Generation** (WORLD / REGION GENERATION)
+- [ ] **Civilization Map Generation** (WORLD / REGION GENERATION)
+- [ ] **Resource Distribution Generation** (WORLD / REGION GENERATION)
+- [ ] **Island Generation** (WORLD / REGION GENERATION)
+- [ ] **Continent Generation** (WORLD / REGION GENERATION)
+- [ ] **Archipelago Generation** (WORLD / REGION GENERATION)
+- [ ] **Spherical World Generation** (WORLD / REGION GENERATION)
+- [ ] **Hex World Generation** (WORLD / REGION GENERATION)
+- [ ] **Chunk-Based Infinite World Generation** (WORLD / REGION GENERATION)
+- [ ] **A* Path-Based Road Generation** (ROAD / PATH / RIVER GENERATION)
+- [ ] **Dijkstra Path-Based Road Generation** (ROAD / PATH / RIVER GENERATION)
+- [ ] **Minimum Spanning Tree Road Network** (ROAD / PATH / RIVER GENERATION)
+- [ ] **Steiner Tree Road Network** (ROAD / PATH / RIVER GENERATION)
+- [ ] **L-System Roads** (ROAD / PATH / RIVER GENERATION)
+- [ ] **Agent-Based Roads** (ROAD / PATH / RIVER GENERATION)
+- [ ] **Tensor Field Roads** (ROAD / PATH / RIVER GENERATION)
+- [ ] **Spline-Based Road Generation** (ROAD / PATH / RIVER GENERATION)
+- [ ] **Bezier Road Generation** (ROAD / PATH / RIVER GENERATION)
+- [ ] **River Flow Accumulation** (ROAD / PATH / RIVER GENERATION)
+- [ ] **Downhill River Tracing** (ROAD / PATH / RIVER GENERATION)
+- [ ] **Drainage Network Generation** (ROAD / PATH / RIVER GENERATION)
+- [ ] **Meandering River Generation** (ROAD / PATH / RIVER GENERATION)
+- [ ] **Road Connection Graph** (ROAD / PATH / RIVER GENERATION)
+- [ ] **Path Smoothing** (ROAD / PATH / RIVER GENERATION)
+- [ ] **Path Widening** (ROAD / PATH / RIVER GENERATION)
+- [ ] **Corridor Carving** (ROAD / PATH / RIVER GENERATION)
+- [ ] **Tunnel Generation** (ROAD / PATH / RIVER GENERATION)
+- [ ] **Shape Grammar** (GRAMMAR-BASED GENERATION)
+- [ ] **Graph Grammar** (GRAMMAR-BASED GENERATION)
+- [ ] **String Grammar** (GRAMMAR-BASED GENERATION)
+- [ ] **L-System Generation** (GRAMMAR-BASED GENERATION)
+- [ ] **Stochastic L-System** (GRAMMAR-BASED GENERATION)
+- [ ] **Context-Sensitive Grammar** (GRAMMAR-BASED GENERATION)
+- [ ] **Context-Free Grammar** (GRAMMAR-BASED GENERATION)
+- [ ] **Split Grammar** (GRAMMAR-BASED GENERATION)
+- [ ] **Production Rule Generation** (GRAMMAR-BASED GENERATION)
+- [ ] **Mission Grammar** (GRAMMAR-BASED GENERATION)
+- [ ] **Quest Grammar** (GRAMMAR-BASED GENERATION)
+- [ ] **Building Grammar** (GRAMMAR-BASED GENERATION)
+- [ ] **Dungeon Grammar** (GRAMMAR-BASED GENERATION)
+- [ ] **Road Grammar** (GRAMMAR-BASED GENERATION)
+- [ ] **Tile Grammar** (GRAMMAR-BASED GENERATION)
+- [ ] **Random Walker** (AGENT-BASED GENERATION)
+- [ ] **Drunkard Walk** (AGENT-BASED GENERATION)
+- [ ] **Multiple Random Walkers** (AGENT-BASED GENERATION)
+- [ ] **Agent-Based Road Growth** (AGENT-BASED GENERATION)
+- [ ] **Agent-Based City Growth** (AGENT-BASED GENERATION)
+- [ ] **Ant Colony Map Generation** (AGENT-BASED GENERATION)
+- [ ] **Swarm-Based Generation** (AGENT-BASED GENERATION)
+- [ ] **Boids-Based Spatial Generation** (AGENT-BASED GENERATION)
+- [ ] **Settler Agent Simulation** (AGENT-BASED GENERATION)
+- [ ] **Civilization Growth Simulation** (AGENT-BASED GENERATION)
+- [ ] **Traffic-Driven Road Growth** (AGENT-BASED GENERATION)
+- [ ] **Resource-Seeking Agent Generation** (AGENT-BASED GENERATION)
+- [ ] **Enemy/Encounter Placement Agents** (AGENT-BASED GENERATION)
+- [ ] **Room Digging Agents** (AGENT-BASED GENERATION)
+- [ ] **Genetic Algorithm Map Generation** (EVOLUTIONARY / OPTIMIZATION-BASED GENERATION)
+- [ ] **Evolutionary Dungeon Generation** (EVOLUTIONARY / OPTIMIZATION-BASED GENERATION)
+- [ ] **Evolutionary Terrain Generation** (EVOLUTIONARY / OPTIMIZATION-BASED GENERATION)
+- [ ] **Genetic Programming Generation** (EVOLUTIONARY / OPTIMIZATION-BASED GENERATION)
+- [ ] **Neuroevolution Map Generation** (EVOLUTIONARY / OPTIMIZATION-BASED GENERATION)
+- [ ] **Simulated Annealing Map Optimization** (EVOLUTIONARY / OPTIMIZATION-BASED GENERATION)
+- [ ] **Constraint Satisfaction Optimization** (EVOLUTIONARY / OPTIMIZATION-BASED GENERATION)
+- [ ] **Hill Climbing Map Optimization** (EVOLUTIONARY / OPTIMIZATION-BASED GENERATION)
+- [ ] **Random Mutation Map Generation** (EVOLUTIONARY / OPTIMIZATION-BASED GENERATION)
+- [ ] **Fitness-Based Dungeon Generation** (EVOLUTIONARY / OPTIMIZATION-BASED GENERATION)
+- [ ] **Multi-Objective Map Generation** (EVOLUTIONARY / OPTIMIZATION-BASED GENERATION)
+- [ ] **MAP-Elites Procedural Generation** (EVOLUTIONARY / OPTIMIZATION-BASED GENERATION)
+- [ ] **Quality-Diversity Generation** (EVOLUTIONARY / OPTIMIZATION-BASED GENERATION)
+- [ ] **Markov Chain Map Generation** (AI / ML-BASED MAP GENERATION)
+- [ ] **Markov Random Field Map Generation** (AI / ML-BASED MAP GENERATION)
+- [ ] **Hidden Markov Model Generation** (AI / ML-BASED MAP GENERATION)
+- [ ] **Bayesian Network Map Generation** (AI / ML-BASED MAP GENERATION)
+- [ ] **Neural Cellular Automata** (AI / ML-BASED MAP GENERATION)
+- [ ] **Autoencoder Map Generation** (AI / ML-BASED MAP GENERATION)
+- [ ] **Variational Autoencoder Map Generation** (AI / ML-BASED MAP GENERATION)
+- [ ] **GAN-Based Map Generation** (AI / ML-BASED MAP GENERATION)
+- [ ] **Diffusion-Based Map Generation** (AI / ML-BASED MAP GENERATION)
+- [ ] **Transformer-Based Map Generation** (AI / ML-BASED MAP GENERATION)
+- [ ] **Reinforcement Learning Map Generation** (AI / ML-BASED MAP GENERATION)
+- [ ] **Imitation Learning Map Generation** (AI / ML-BASED MAP GENERATION)
+- [ ] **Procedural Content Generation via Machine Learning** (AI / ML-BASED MAP GENERATION)
+- [ ] **PCGML** (AI / ML-BASED MAP GENERATION)
+- [ ] **Large Language Model Assisted Map Generation** (AI / ML-BASED MAP GENERATION)
+- [ ] **Voxel Terrain Generation** (VOXEL / 3D MAP GENERATION)
+- [ ] **Chunk-Based Voxel Generation** (VOXEL / 3D MAP GENERATION)
+- [ ] **Marching Cubes** (VOXEL / 3D MAP GENERATION)
+- [ ] **Dual Contouring** (VOXEL / 3D MAP GENERATION)
+- [ ] **Surface Nets** (VOXEL / 3D MAP GENERATION)
+- [ ] **Sparse Voxel Octree Generation** (VOXEL / 3D MAP GENERATION)
+- [ ] **Signed Distance Field Generation** (VOXEL / 3D MAP GENERATION)
+- [ ] **Constructive Solid Geometry** (VOXEL / 3D MAP GENERATION)
+- [ ] **3D Cellular Automata** (VOXEL / 3D MAP GENERATION)
+- [ ] **3D Perlin Noise Caves** (VOXEL / 3D MAP GENERATION)
+- [ ] **3D Simplex Noise Caves** (VOXEL / 3D MAP GENERATION)
+- [ ] **Worm Cave Generation** (VOXEL / 3D MAP GENERATION)
+- [ ] **Noise Worms** (VOXEL / 3D MAP GENERATION)
+- [ ] **Tunnel Worms** (VOXEL / 3D MAP GENERATION)
+- [ ] **Cave Network Generation** (VOXEL / 3D MAP GENERATION)
+- [ ] **Voxel Dungeon Generation** (VOXEL / 3D MAP GENERATION)
+- [ ] **Procedural Cave Tubes** (VOXEL / 3D MAP GENERATION)
+- [ ] **Volumetric Terrain Generation** (VOXEL / 3D MAP GENERATION)
+- [ ] **Cube Sphere Terrain Generation** (PLANET / SPHERICAL MAP GENERATION)
+- [ ] **Icosphere Subdivision** (PLANET / SPHERICAL MAP GENERATION)
+- [ ] **Spherical Voronoi Generation** (PLANET / SPHERICAL MAP GENERATION)
+- [ ] **Spherical Noise Terrain** (PLANET / SPHERICAL MAP GENERATION)
+- [ ] **Plate Tectonics Planet Generation** (PLANET / SPHERICAL MAP GENERATION)
+- [ ] **Climate-Based Planet Generation** (PLANET / SPHERICAL MAP GENERATION)
+- [ ] **Biome-Based Planet Generation** (PLANET / SPHERICAL MAP GENERATION)
+- [ ] **Ocean/Land Mask Generation** (PLANET / SPHERICAL MAP GENERATION)
+- [ ] **Latitude-Based Temperature Generation** (PLANET / SPHERICAL MAP GENERATION)
+- [ ] **Atmospheric Simulation Map** (PLANET / SPHERICAL MAP GENERATION)
+- [ ] **Planetary Erosion** (PLANET / SPHERICAL MAP GENERATION)
+- [ ] **Crater Generation** (PLANET / SPHERICAL MAP GENERATION)
+- [ ] **Asteroid Terrain Generation** (PLANET / SPHERICAL MAP GENERATION)
+- [ ] **Gas Giant Texture Generation** (PLANET / SPHERICAL MAP GENERATION)
+- [ ] **Procedural Moon Generation** (PLANET / SPHERICAL MAP GENERATION)
+- [ ] **Random Object Placement** (PLACEMENT / DECORATION ALGORITHMS)
+- [ ] **Poisson Disk Object Placement** (PLACEMENT / DECORATION ALGORITHMS)
+- [ ] **Blue Noise Object Placement** (PLACEMENT / DECORATION ALGORITHMS)
+- [ ] **Weighted Biome Placement** (PLACEMENT / DECORATION ALGORITHMS)
+- [ ] **Rule-Based Object Placement** (PLACEMENT / DECORATION ALGORITHMS)
+- [ ] **Constraint-Based Object Placement** (PLACEMENT / DECORATION ALGORITHMS)
+- [ ] **Scatter Placement** (PLACEMENT / DECORATION ALGORITHMS)
+- [ ] **Cluster Placement** (PLACEMENT / DECORATION ALGORITHMS)
+- [ ] **Resource Node Placement** (PLACEMENT / DECORATION ALGORITHMS)
+- [ ] **Enemy Spawn Placement** (PLACEMENT / DECORATION ALGORITHMS)
+- [ ] **Loot Placement** (PLACEMENT / DECORATION ALGORITHMS)
+- [ ] **Encounter Placement** (PLACEMENT / DECORATION ALGORITHMS)
+- [ ] **Landmark Placement** (PLACEMENT / DECORATION ALGORITHMS)
+- [ ] **Prop Placement** (PLACEMENT / DECORATION ALGORITHMS)
+- [ ] **Vegetation Placement** (PLACEMENT / DECORATION ALGORITHMS)
+- [ ] **Tree Distribution** (PLACEMENT / DECORATION ALGORITHMS)
+- [ ] **Rock Distribution** (PLACEMENT / DECORATION ALGORITHMS)
+- [ ] **Foliage Generation** (PLACEMENT / DECORATION ALGORITHMS)
+- [ ] **Navmesh-Aware Placement** (PLACEMENT / DECORATION ALGORITHMS)
+- [ ] **Noise + Cellular Automata** (HYBRID MAP GENERATION)
+- [ ] **Noise + Voronoi** (HYBRID MAP GENERATION)
+- [ ] **Noise + Erosion** (HYBRID MAP GENERATION)
+- [ ] **BSP + Cellular Automata** (HYBRID MAP GENERATION)
+- [ ] **Room Graph + Corridor Carving** (HYBRID MAP GENERATION)
+- [ ] **WFC + Grammar** (HYBRID MAP GENERATION)
+- [ ] **WFC + Handcrafted Prefabs** (HYBRID MAP GENERATION)
+- [ ] **Terrain + Biome Rules** (HYBRID MAP GENERATION)
+- [ ] **Terrain + River Simulation** (HYBRID MAP GENERATION)
+- [ ] **City Grammar + Road Agents** (HYBRID MAP GENERATION)
+- [ ] **Dungeon Graph + Lock-and-Key Rules** (HYBRID MAP GENERATION)
+- [ ] **Evolutionary + Constraint-Based Generation** (HYBRID MAP GENERATION)
+- [ ] **ML-Assisted + Rule-Based Generation** (HYBRID MAP GENERATION)
+- [ ] **Chunk-Based Hybrid Generation** (HYBRID MAP GENERATION)
