@@ -183,6 +183,42 @@ struct CatalogSettings {
     bool use3DLayers = true;
 };
 
+struct EllerSettings {
+    uint32_t corridorWidth = 1;
+    uint32_t cellSpacing = 2;
+    uint32_t cellsPerStep = 1;
+    float horizontalMergeChance = 0.45f;  // chance to merge adjacent sets in a row
+    float verticalCarryChance   = 0.45f;  // extra carry-down chance per cell (>= 1 always forced)
+    float wallHeight    = 1.0f;
+    float floorHeight   = 0.08f;
+    float currentHeight = 0.32f;
+};
+
+struct VoronoiSettings {
+    uint32_t numSeeds          = 32;
+    uint32_t lloydIterations   = 0;
+    uint32_t cellsPerStep      = 96;
+    bool     showSeeds         = true;
+    bool     terrainMode       = true;   // small regions = water, large = land/mountain
+    float    waterFraction     = 0.35f;
+    float    mountainFraction  = 0.20f;
+    float    floorHeight       = 0.12f;
+    float    waterHeight       = 0.05f;
+    float    mountainHeight    = 1.6f;
+    float    seedMarkerHeight  = 0.50f;
+};
+
+struct PoissonSettings {
+    float    minDistance       = 4.0f;
+    uint32_t kAttempts         = 30;
+    uint32_t brushRadius       = 1;
+    uint32_t cellsPerStep      = 1;
+    bool     spawnFromCenter   = true;
+    bool     paintGround       = true;
+    float    groundHeight      = 0.06f;
+    float    sampleHeight      = 0.9f;
+};
+
 struct GeneratorConfig {
     uint32_t width  = 48;
     uint32_t depth  = 48;
@@ -200,6 +236,9 @@ struct GeneratorConfig {
     FaultFormationSettings faultFormation;
     WFCSettings wfc;
     CatalogSettings catalog;
+    EllerSettings    eller;
+    VoronoiSettings  voronoi;
+    PoissonSettings  poisson;
 };
 
 struct GeneratorStep {

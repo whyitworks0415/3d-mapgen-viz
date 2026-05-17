@@ -88,9 +88,12 @@ set(MAPGENVIZ_SOURCES
     src/algorithms/CatalogAlgorithmGenerators.cpp
     src/algorithms/CellularAutomataCaveGenerator.cpp
     src/algorithms/DFSMazeGenerator.cpp
+    src/algorithms/EllerMazeGenerator.cpp
     src/algorithms/PerlinNoiseHeightmapGenerator.cpp
     src/algorithms/PlannedAlgorithmGenerators.cpp
+    src/algorithms/PoissonDiskSamplingGenerator.cpp
     src/algorithms/RandomRoomDungeonGenerator.cpp
+    src/algorithms/VoronoiDiagramGenerator.cpp
     src/algorithms/WFCGenerator.cpp
     src/app/Application.cpp
     src/core/Window.cpp

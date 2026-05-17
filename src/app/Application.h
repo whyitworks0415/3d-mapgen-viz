@@ -93,6 +93,9 @@ private:
     FaultFormationSettings   faultFormationSettings_;
     WFCSettings              wfcSettings_;
     CatalogSettings          catalogSettings_;
+    EllerSettings            ellerSettings_;
+    VoronoiSettings          voronoiSettings_;
+    PoissonSettings          poissonSettings_;
 
     bool        playbackRunning_     = false;
     float       playbackSpeed_       = 20.0f;

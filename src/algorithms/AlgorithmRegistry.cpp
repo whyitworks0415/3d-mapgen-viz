@@ -4,9 +4,12 @@
 #include "algorithms/CatalogAlgorithmGenerators.h"
 #include "algorithms/CellularAutomataCaveGenerator.h"
 #include "algorithms/DFSMazeGenerator.h"
+#include "algorithms/EllerMazeGenerator.h"
 #include "algorithms/PerlinNoiseHeightmapGenerator.h"
 #include "algorithms/PlannedAlgorithmGenerators.h"
+#include "algorithms/PoissonDiskSamplingGenerator.h"
 #include "algorithms/RandomRoomDungeonGenerator.h"
+#include "algorithms/VoronoiDiagramGenerator.h"
 #include "algorithms/WFCGenerator.h"
 
 #include <algorithm>
@@ -58,6 +61,9 @@ void registerBuiltInAlgorithms(AlgorithmRegistry& registry) {
     registerBSPDungeonGenerator(registry);
     registerCellularAutomataCaveGenerator(registry);
     registerWFCGenerator(registry);
+    registerEllerMazeGenerator(registry);
+    registerVoronoiDiagramGenerator(registry);
+    registerPoissonDiskSamplingGenerator(registry);
 
     // Planned (scripted-replay algorithms).
     registerPlannedAlgorithmGenerators(registry);

@@ -144,6 +144,9 @@ GeneratorConfig Application::currentGeneratorConfig() const {
     config.faultFormation   = faultFormationSettings_;
     config.wfc              = wfcSettings_;
     config.catalog          = catalogSettings_;
+    config.eller            = ellerSettings_;
+    config.voronoi          = voronoiSettings_;
+    config.poisson          = poissonSettings_;
     return config;
 }
 
@@ -833,6 +836,39 @@ void Application::drawAlgorithmSettings(const std::string& algorithmId) {
         ImGui::SliderFloat("Floor height", &wfcSettings_.floorHeight, 0.01f, 3.0f, "%.2f");
         ImGui::SliderFloat("Wall height", &wfcSettings_.wallHeight, 0.05f, 8.0f, "%.2f");
         ImGui::SliderFloat("Mountain height", &wfcSettings_.mountainHeight, 0.1f, 12.0f, "%.2f");
+    } else if (algorithmId == "eller_maze") {
+        sliderUint("Corridor width", ellerSettings_.corridorWidth, 1, 12);
+        sliderUint("Cell spacing", ellerSettings_.cellSpacing,
+                   static_cast<int>(ellerSettings_.corridorWidth) + 1, 16);
+        sliderUint("Cells per step", ellerSettings_.cellsPerStep, 1, 64);
+        ImGui::SliderFloat("Horizontal merge chance", &ellerSettings_.horizontalMergeChance, 0.0f, 1.0f, "%.2f");
+        ImGui::SliderFloat("Vertical carry chance",   &ellerSettings_.verticalCarryChance,   0.0f, 1.0f, "%.2f");
+        ImGui::SliderFloat("Wall height",    &ellerSettings_.wallHeight,    0.05f, 8.0f, "%.2f");
+        ImGui::SliderFloat("Floor height",   &ellerSettings_.floorHeight,   0.01f, 2.0f, "%.2f");
+        ImGui::SliderFloat("Current height", &ellerSettings_.currentHeight, 0.01f, 4.0f, "%.2f");
+    } else if (algorithmId == "voronoi_diagram") {
+        sliderUint("Number of seeds", voronoiSettings_.numSeeds, 2, 256);
+        sliderUint("Lloyd iterations", voronoiSettings_.lloydIterations, 0, 10);
+        sliderUint("Cells per step", voronoiSettings_.cellsPerStep, 1, 4096);
+        ImGui::Checkbox("Show seed markers", &voronoiSettings_.showSeeds);
+        ImGui::Checkbox("Terrain mode (water / land / mountain)", &voronoiSettings_.terrainMode);
+        if (voronoiSettings_.terrainMode) {
+            ImGui::SliderFloat("Water fraction",    &voronoiSettings_.waterFraction,    0.0f, 0.7f, "%.2f");
+            ImGui::SliderFloat("Mountain fraction", &voronoiSettings_.mountainFraction, 0.0f, 0.7f, "%.2f");
+        }
+        ImGui::SliderFloat("Floor height",       &voronoiSettings_.floorHeight,       0.01f, 3.0f, "%.2f");
+        ImGui::SliderFloat("Water height",       &voronoiSettings_.waterHeight,       0.01f, 2.0f, "%.2f");
+        ImGui::SliderFloat("Mountain height",    &voronoiSettings_.mountainHeight,    0.1f,  8.0f, "%.2f");
+        ImGui::SliderFloat("Seed marker height", &voronoiSettings_.seedMarkerHeight,  0.1f,  4.0f, "%.2f");
+    } else if (algorithmId == "poisson_disk_sampling") {
+        ImGui::SliderFloat("Min distance", &poissonSettings_.minDistance, 2.0f, 32.0f, "%.1f");
+        sliderUint("Attempts per active", poissonSettings_.kAttempts,   1, 64);
+        sliderUint("Brush radius",        poissonSettings_.brushRadius, 0,  6);
+        sliderUint("Cells per step",      poissonSettings_.cellsPerStep, 1, 64);
+        ImGui::Checkbox("Spawn from centre",   &poissonSettings_.spawnFromCenter);
+        ImGui::Checkbox("Paint ground floor",  &poissonSettings_.paintGround);
+        ImGui::SliderFloat("Ground height", &poissonSettings_.groundHeight, 0.01f, 1.0f, "%.2f");
+        ImGui::SliderFloat("Sample height", &poissonSettings_.sampleHeight, 0.1f,  6.0f, "%.2f");
     } else if (algorithmId.rfind("catalog_", 0) == 0) {
         sliderUint("Cells per step", catalogSettings_.cellsPerStep, 1, 4096);
         sliderUint("Feature size", catalogSettings_.featureSize, 2, 32);
