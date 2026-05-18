@@ -305,6 +305,46 @@ bool Application::matchesSearch(const AlgorithmDescriptor& d) const {
 // ---------------------------------------------------------------------------
 // Main loop
 // ---------------------------------------------------------------------------
+void Application::togglePlayback() {
+    const bool isFinished = generator_ && generator_->finished();
+    if (playbackRunning_) {
+        playbackRunning_ = false;
+    } else {
+        if (!generator_ || isFinished) resetGenerator();
+        playbackRunning_ = true;
+    }
+}
+
+void Application::handleShortcuts() {
+    GLFWwindow* w = window_->handle();
+
+    // Edge detection helper — fires once per press, ignored while ImGui has
+    // keyboard focus so typing into widgets doesn't trigger playback actions.
+    auto edge = [&](int key, bool& prev) {
+        const bool cur = glfwGetKey(w, key) == GLFW_PRESS;
+        const bool fired = (cur && !prev);
+        prev = cur;
+        return fired;
+    };
+
+    const bool imguiKeyboard = ImGui::GetIO().WantCaptureKeyboard;
+
+    const bool space        = edge(GLFW_KEY_SPACE,         prevSpace_);
+    const bool r            = edge(GLFW_KEY_R,             prevR_);
+    const bool n            = edge(GLFW_KEY_N,             prevN_);
+    const bool right        = edge(GLFW_KEY_RIGHT,         prevRightArrow_);
+    const bool leftBracket  = edge(GLFW_KEY_LEFT_BRACKET,  prevLeftBracket_);
+    const bool rightBracket = edge(GLFW_KEY_RIGHT_BRACKET, prevRightBracket_);
+
+    if (imguiKeyboard) return;
+
+    if (space)                        togglePlayback();
+    if (r)                            resetGenerator();
+    if ((n || right) && !playbackRunning_) stepGenerator();
+    if (leftBracket)                  playbackSpeed_ = std::max(1.0f,    playbackSpeed_ / 1.5f);
+    if (rightBracket)                 playbackSpeed_ = std::min(240.0f,  playbackSpeed_ * 1.5f);
+}
+
 void Application::run() {
     Logger::info("Entering main loop");
     double prevTime = glfwGetTime();
@@ -317,6 +357,7 @@ void Application::run() {
         prevTime = now;
 
         cameraController_->update(dt);
+        handleShortcuts();
         advancePlayback(dt);
 
         imguiLayer_->beginFrame();
@@ -374,6 +415,12 @@ void Application::drawUI() {
     }
     if (showShortcuts_) {
         ImGui::Begin("Shortcuts", &showShortcuts_, ImGuiWindowFlags_AlwaysAutoResize);
+        ImGui::TextUnformatted("Playback");
+        ImGui::BulletText("Space                   : start / pause");
+        ImGui::BulletText("N  or  Right arrow      : single step");
+        ImGui::BulletText("R                       : reset");
+        ImGui::BulletText("[  /  ]                 : speed - / +");
+        ImGui::Separator();
         ImGui::TextUnformatted("Mouse");
         ImGui::BulletText("MMB drag / Alt+LMB drag : orbit");
         ImGui::BulletText("Shift + MMB             : pan");
@@ -392,6 +439,7 @@ void Application::drawUI() {
         ImGui::BulletText("W A S D       : move target on horizontal plane");
         ImGui::BulletText("Q / E         : down / up");
         ImGui::BulletText("Shift / Ctrl  : move fast / slow");
+        ImGui::TextDisabled("Shortcuts are suppressed while ImGui has keyboard focus.");
         ImGui::End();
     }
 }
@@ -405,16 +453,12 @@ void Application::drawMainMenuBar() {
         ImGui::EndMenu();
     }
     if (ImGui::BeginMenu("Playback")) {
-        if (ImGui::MenuItem("Start / Pause", "Space (todo)")) {
-            if (playbackRunning_) {
-                playbackRunning_ = false;
-            } else {
-                if (!generator_ || generator_->finished()) resetGenerator();
-                playbackRunning_ = true;
-            }
-        }
-        if (ImGui::MenuItem("Step"))  { playbackRunning_ = false; stepGenerator(); }
-        if (ImGui::MenuItem("Reset")) resetGenerator();
+        if (ImGui::MenuItem("Start / Pause", "Space"))     togglePlayback();
+        if (ImGui::MenuItem("Step",          "N / Right")) { playbackRunning_ = false; stepGenerator(); }
+        if (ImGui::MenuItem("Reset",         "R"))         resetGenerator();
+        ImGui::Separator();
+        if (ImGui::MenuItem("Speed -",       "["))         playbackSpeed_ = std::max(1.0f,   playbackSpeed_ / 1.5f);
+        if (ImGui::MenuItem("Speed +",       "]"))         playbackSpeed_ = std::min(240.0f, playbackSpeed_ * 1.5f);
         ImGui::EndMenu();
     }
     if (ImGui::BeginMenu("Camera")) {
@@ -569,27 +613,21 @@ void Application::drawSelectedAlgorithmPanel() {
 
 void Application::drawPlaybackSection() {
     const bool isFinished = generator_ && generator_->finished();
-    const char* runLabel  = playbackRunning_ ? "Pause" : (isFinished ? "Restart" : "Start");
+    const char* runLabel  = playbackRunning_ ? "Pause (Space)"
+                          : (isFinished ? "Restart (Space)" : "Start (Space)");
 
     const float btnH = 32.0f;
     const float groupW = ImGui::GetContentRegionAvail().x;
     const float btnW = (groupW - ImGui::GetStyle().ItemSpacing.x * 2) / 3.0f;
 
-    if (ImGui::Button(runLabel, ImVec2(btnW, btnH))) {
-        if (playbackRunning_) {
-            playbackRunning_ = false;
-        } else {
-            if (!generator_ || isFinished) resetGenerator();
-            playbackRunning_ = true;
-        }
-    }
+    if (ImGui::Button(runLabel, ImVec2(btnW, btnH))) togglePlayback();
     ImGui::SameLine();
-    if (ImGui::Button("Step", ImVec2(btnW, btnH))) {
+    if (ImGui::Button("Step (N)", ImVec2(btnW, btnH))) {
         playbackRunning_ = false;
         stepGenerator();
     }
     ImGui::SameLine();
-    if (ImGui::Button("Reset", ImVec2(btnW, btnH))) {
+    if (ImGui::Button("Reset (R)", ImVec2(btnW, btnH))) {
         resetGenerator();
     }
 

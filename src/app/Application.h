@@ -42,6 +42,10 @@ private:
     void drawAlgorithmSettings(const std::string& algorithmId);
     void drawVisualizationGuide(const std::string& algorithmId);
 
+    // ---- Input ----
+    void handleShortcuts();
+    void togglePlayback();
+
     // ---- Generator plumbing ----
     GeneratorConfig currentGeneratorConfig() const;
     void resetGenerator();
@@ -106,6 +110,14 @@ private:
     bool        showDemo_  = false;
     bool        showAbout_ = false;
     bool        showShortcuts_ = false;
+
+    // Playback shortcut edge-detection state.
+    bool prevSpace_         = false;
+    bool prevR_             = false;
+    bool prevN_             = false;
+    bool prevRightArrow_    = false;
+    bool prevLeftBracket_   = false;
+    bool prevRightBracket_  = false;
 
     // Browser
     std::vector<AlgorithmGroup> groups_;
