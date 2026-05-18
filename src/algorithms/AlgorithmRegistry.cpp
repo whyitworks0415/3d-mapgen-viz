@@ -11,6 +11,7 @@
 #include "algorithms/FaultFormationTerrainGenerator.h"
 #include "algorithms/HuntAndKillMazeGenerator.h"
 #include "algorithms/KruskalMazeGenerator.h"
+#include "algorithms/LSystemGenerator.h"
 #include "algorithms/PerlinNoiseHeightmapGenerator.h"
 #include "algorithms/PlannedAlgorithmGenerators.h"
 #include "algorithms/PoissonDiskSamplingGenerator.h"
@@ -80,6 +81,7 @@ void registerBuiltInAlgorithms(AlgorithmRegistry& registry) {
     registerDrunkardWalkCaveGenerator(registry);
     registerDiamondSquareTerrainGenerator(registry);
     registerFaultFormationTerrainGenerator(registry);
+    registerLSystemGenerator(registry);
 
     // Planned (scripted-replay algorithms).
     registerPlannedAlgorithmGenerators(registry);

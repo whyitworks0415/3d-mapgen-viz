@@ -219,6 +219,18 @@ struct PoissonSettings {
     float    sampleHeight      = 0.9f;
 };
 
+struct LSystemSettings {
+    uint32_t preset       = 0;     // 0=Dragon 1=Hilbert 2=KochSquare 3=Plant
+    uint32_t iterations   = 6;
+    uint32_t cellsPerStep = 32;
+    uint32_t stepLength   = 1;
+    float    pathHeight    = 0.20f;
+    float    branchHeight  = 0.30f;
+    float    currentHeight = 0.45f;
+    bool     startCentered = true;
+    bool     showStack     = true;   // mark push/pop points in Frontier colour
+};
+
 struct GeneratorConfig {
     uint32_t width  = 48;
     uint32_t depth  = 48;
@@ -239,6 +251,7 @@ struct GeneratorConfig {
     EllerSettings    eller;
     VoronoiSettings  voronoi;
     PoissonSettings  poisson;
+    LSystemSettings  lsystem;
 };
 
 struct GeneratorStep {

@@ -95,6 +95,7 @@ set(MAPGENVIZ_SOURCES
     src/algorithms/FaultFormationTerrainGenerator.cpp
     src/algorithms/HuntAndKillMazeGenerator.cpp
     src/algorithms/KruskalMazeGenerator.cpp
+    src/algorithms/LSystemGenerator.cpp
     src/algorithms/PerlinNoiseHeightmapGenerator.cpp
     src/algorithms/PlannedAlgorithmGenerators.cpp
     src/algorithms/PoissonDiskSamplingGenerator.cpp

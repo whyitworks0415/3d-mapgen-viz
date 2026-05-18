@@ -691,6 +691,12 @@ void registerCatalogAlgorithmGenerators(AlgorithmRegistry& registry) {
         "voronoi_diagram",
         // Sampling
         "poisson_disk_sampling",
+        // Grammar
+        "l_system_map",
+        "l_systems",
+        "l_system",
+        "lindenmayer_system",
+        "l_system_terrain_growth",
     };
 
     auto specs = readCatalog();

@@ -147,6 +147,7 @@ GeneratorConfig Application::currentGeneratorConfig() const {
     config.eller            = ellerSettings_;
     config.voronoi          = voronoiSettings_;
     config.poisson          = poissonSettings_;
+    config.lsystem          = lsystemSettings_;
     return config;
 }
 
@@ -869,6 +870,19 @@ void Application::drawAlgorithmSettings(const std::string& algorithmId) {
         ImGui::Checkbox("Paint ground floor",  &poissonSettings_.paintGround);
         ImGui::SliderFloat("Ground height", &poissonSettings_.groundHeight, 0.01f, 1.0f, "%.2f");
         ImGui::SliderFloat("Sample height", &poissonSettings_.sampleHeight, 0.1f,  6.0f, "%.2f");
+    } else if (algorithmId == "lsystem") {
+        const char* presets[] = { "Dragon Curve", "Hilbert Curve", "Koch Square", "Plant Branching" };
+        int presetIdx = static_cast<int>(lsystemSettings_.preset);
+        if (ImGui::Combo("Preset", &presetIdx, presets, 4))
+            lsystemSettings_.preset = static_cast<uint32_t>(presetIdx);
+        sliderUint("Iterations",     lsystemSettings_.iterations,   1, 12);
+        sliderUint("Cells per step", lsystemSettings_.cellsPerStep, 1, 4096);
+        sliderUint("Step length",    lsystemSettings_.stepLength,   1, 8);
+        ImGui::Checkbox("Start centred", &lsystemSettings_.startCentered);
+        ImGui::Checkbox("Mark stack push/pop", &lsystemSettings_.showStack);
+        ImGui::SliderFloat("Path height",    &lsystemSettings_.pathHeight,    0.01f, 4.0f, "%.2f");
+        ImGui::SliderFloat("Branch height",  &lsystemSettings_.branchHeight,  0.01f, 4.0f, "%.2f");
+        ImGui::SliderFloat("Current height", &lsystemSettings_.currentHeight, 0.01f, 4.0f, "%.2f");
     } else if (algorithmId.rfind("catalog_", 0) == 0) {
         sliderUint("Cells per step", catalogSettings_.cellsPerStep, 1, 4096);
         sliderUint("Feature size", catalogSettings_.featureSize, 2, 32);

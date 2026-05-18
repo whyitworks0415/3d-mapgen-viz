@@ -96,6 +96,7 @@ private:
     EllerSettings            ellerSettings_;
     VoronoiSettings          voronoiSettings_;
     PoissonSettings          poissonSettings_;
+    LSystemSettings          lsystemSettings_;
 
     bool        playbackRunning_     = false;
     float       playbackSpeed_       = 20.0f;
