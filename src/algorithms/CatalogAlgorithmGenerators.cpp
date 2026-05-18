@@ -15,6 +15,7 @@
 #include <sstream>
 #include <string>
 #include <string_view>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -645,8 +646,60 @@ std::vector<CatalogSpec> readCatalog() {
 } // namespace
 
 void registerCatalogAlgorithmGenerators(AlgorithmRegistry& registry) {
+    // Names that already have a real Tier-A or Tier-B implementation. The
+    // catalog skips these so they don't appear twice (once as Featured,
+    // once as a generic catalog placeholder).
+    static const std::unordered_set<std::string> kShadowedNames = {
+        // Maze
+        "depth_first_search_maze",
+        "recursive_backtracking_maze",
+        "randomized_prim_s_maze",
+        "randomized_kruskal_s_maze",
+        "wilson_s_algorithm",
+        "aldous_broder_algorithm",
+        "hunt_and_kill_algorithm",
+        "growing_tree_algorithm",
+        "binary_tree_maze",
+        "sidewinder_maze",
+        "recursive_division_maze",
+        "eller_s_algorithm",
+        // Dungeon
+        "binary_space_partitioning_bsp_dungeon",
+        "bsp_dungeon",
+        "random_room_placement_dungeon",
+        "random_room_dungeon",
+        // Cave
+        "cellular_automata_caves",
+        "cellular_automata_cave",
+        "drunkard_s_walk_caves",
+        "drunkard_walk_cave",
+        // Terrain
+        "perlin_noise_terrain",
+        "perlin_noise_heightmap",
+        "simplex_noise_terrain",
+        "simplex_noise_heightmap",
+        "diamond_square_algorithm",
+        "diamond_square_terrain",
+        "fault_formation",
+        "fault_formation_terrain",
+        // Tile / Constraint
+        "wave_function_collapse_wfc",
+        "wave_function_collapse",
+        "simple_tiled_wfc",
+        // Graph
+        "voronoi_maps",
+        "voronoi_diagram",
+        // Sampling
+        "poisson_disk_sampling",
+    };
+
     auto specs = readCatalog();
+    size_t skipped = 0;
     for (const CatalogSpec& spec : specs) {
+        if (kShadowedNames.count(sanitize(spec.name))) {
+            ++skipped;
+            continue;
+        }
         const std::string category = "Catalog: " + spec.category;
         registry.registerGenerator({
             .id          = spec.id,
@@ -661,6 +714,7 @@ void registerCatalogAlgorithmGenerators(AlgorithmRegistry& registry) {
             .create      = [spec] { return std::make_unique<CatalogAlgorithmGenerator>(spec); }
         });
     }
+    (void)skipped;
 }
 
 } // namespace mgv
